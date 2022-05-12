@@ -3,7 +3,8 @@
 <div class="text-center mb-4">
     <a href="{{ url('/') }}" class="navbar-brand navbar-brand-autodark"><img src="{{ asset('assets/dist/img/logo/logo.svg') }}" height="36" alt=""></a>
 </div>
-<form class="card card-md" action="." method="get">
+<form class="card card-md" action="{{ route('register') }}" method="post">
+    @csrf
     <div class="card-body">
         <h2 class="card-title text-center mb-4">Create new account</h2>
         <div class="mb-3">
