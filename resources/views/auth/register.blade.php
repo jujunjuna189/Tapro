@@ -6,9 +6,9 @@
 <form class="card card-md" action="{{ route('register') }}" method="post">
     @csrf
     <div class="card-body">
-        <h2 class="card-title text-center mb-4">Create new account</h2>
+        <h2 class="card-title text-center mb-4">Buat Akun Baru</h2>
         <div class="mb-3">
-            <label class="form-label">Name</label>
+            <label class="form-label">Nama</label>
             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
             @error('name')
@@ -18,7 +18,7 @@
             @enderror
         </div>
         <div class="mb-3">
-            <label class="form-label">Email address</label>
+            <label class="form-label">Alamat Email</label>
             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
             @error('email')
@@ -68,15 +68,15 @@
         <div class="mb-3">
             <label class="form-check">
                 <input type="checkbox" class="form-check-input" />
-                <span class="form-check-label">Agree the <a href="./terms-of-service.html" tabindex="-1">terms and policy</a>.</span>
+                <span class="form-check-label">Setuju <a href="./terms-of-service.html" tabindex="-1">Ketentuan dan Kebijakan</a>.</span>
             </label>
         </div>
         <div class="form-footer">
-            <button type="submit" class="btn btn-primary w-100">Create new account</button>
+            <button type="submit" class="btn btn-primary w-100">Daftar Akun Baru</button>
         </div>
     </div>
 </form>
 <div class="text-center text-muted mt-3">
-    Already have account? <a href="{{ route('login') }}" tabindex="-1">Sign in</a>
+    Sudah mempunyai akun ? <a href="{{ route('login') }}" tabindex="-1">Masuk</a>
 </div>
 @endsection
