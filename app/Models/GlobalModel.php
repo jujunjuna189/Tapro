@@ -35,6 +35,12 @@ class GlobalModel extends Model
                 '<path d="M21 6.727a11.05 11.05 0 0 0 -2.794 -3.727"></path>' .
                 '<path d="M3 6.727a11.05 11.05 0 0 1 2.792 -3.727"></path>' .
                 '</svg>',
+            'dots_vertical' => '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">' .
+                '<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>' .
+                '<circle cx="12" cy="12" r="1"></circle>' .
+                '<circle cx="12" cy="19" r="1"></circle>' .
+                '<circle cx="12" cy="5" r="1"></circle>' .
+                '</svg>',
             'edit_circle' => '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit-circle" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">' .
                 '<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>' .
                 '<path d="M12 15l8.385 -8.415a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3z"></path>' .

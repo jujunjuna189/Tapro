@@ -11,6 +11,49 @@ class WorkspacesController extends Controller
     public function index()
     {
         $data['page'] = GlobalModel::nav_menus(1);
+        $data['workspaces'] = [
+            (object)[
+                'title' => 'Workspace Saya',
+                'visibility' => 'Public',
+                'color' => 'blue',
+                'project' => [
+                    (object)[
+                        'title' => 'Project yang saya buat',
+                        'total_task' => 25, //Diambil dari table task per project (Optional)
+                    ],
+                    (object)[
+                        'title' => 'Project yang saya buat',
+                        'total_task' => 25, //Diambil dari table task per project (Optional)
+                    ],
+                    (object)[
+                        'title' => 'Project yang saya buat',
+                        'total_task' => 25, //Diambil dari table task per project (Optional)
+                    ],
+                    (object)[
+                        'title' => 'Project yang saya buat',
+                        'total_task' => 25, //Diambil dari table task per project (Optional)
+                    ],
+                ]
+            ],
+            (object)[
+                'title' => 'Workspace Saya Project...',
+                'visibility' => 'Private',
+                'color' => 'orange',
+                'project' => []
+            ],
+            (object)[
+                'title' => 'Workspace Saya',
+                'visibility' => 'Public',
+                'color' => 'blue',
+                'project' => []
+            ],
+            (object)[
+                'title' => 'Workspace Saya Project...',
+                'visibility' => 'Private',
+                'color' => 'orange',
+                'project' => []
+            ],
+        ];
 
         return view('workspaces.index', $data);
     }

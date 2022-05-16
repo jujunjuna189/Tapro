@@ -1,59 +1,28 @@
 @extends('layouts.app_template')
 @section('content')
 <!-- Empty Page -->
-<!-- <x-empty-page.empty-page :image="asset('assets/dist/img/illustration/undraw_quitting_time_dm8t.svg')" title="Ruang Kerja" subtitle="Mulai bekerja dengan cepat." :icon="App\Models\GlobalModel::my_icon()->layer" buttonText="Buat Ruangan Kerja" /> -->
+@if(count($workspaces) == 0)
+<x-empty-page.empty-page :image="asset('assets/dist/img/illustration/undraw_quitting_time_dm8t.svg')" title="Ruang Kerja" subtitle="Mulai bekerja dengan cepat." :icon="App\Models\GlobalModel::my_icon()->layer" buttonText="Buat Ruangan Kerja" />
+@endif
 <!-- Page Workspace -->
+@if(count($workspaces) > 1)
 <div class="row">
     <div class="d-none d-lg-block col-lg-3">
         <h5 class="strong fw-bold mb-4">Workspace's</h5>
-        <div class="card rounded-20 mt-4 border-0 bg-blue-lt shadow-none">
+        @foreach($workspaces as $val)
+        <div class="card rounded-20 mt-4 border-0 bg-{{ $val->color }}-lt shadow-none">
             <div class="card-body">
-                <h6 class="mb-1 fw-normal status-blue">
+                <h6 class="mb-1 fw-normal status-{{ $val->color }}">
                     <span class="status-dot status-dot-animated me-2"></span>
-                    Public
+                    {{ $val->visibility }}
                 </h6>
-                <h4 class="m-0 fw-bolder">Workspace Saya</h4>
-                <a href="#" class="bg-blue p-2 rounded-10 shadow button-fly">
+                <h4 class="m-0 fw-bolder">{{ $val->title }}</h4>
+                <a href="#" class="bg-{{ $val->color }} p-2 rounded-10 shadow button-fly">
                     {!! App\Models\GlobalModel::my_icon()->eye !!}
                 </a>
             </div>
         </div>
-        <div class="card mt-4 rounded-20 border-0 bg-orange-lt shadow-none">
-            <div class="card-body">
-                <h6 class="mb-1 fw-normal status-orange">
-                    <span class="status-dot status-dot-animated me-2"></span>
-                    Private
-                </h6>
-                <h4 class="m-0 fw-bolder">Workspace Saya Project...</h4>
-                <a href="#" class="bg-orange p-2 rounded-10 shadow button-fly">
-                    {!! App\Models\GlobalModel::my_icon()->eye !!}
-                </a>
-            </div>
-        </div>
-        <div class="card mt-4 rounded-20 border-0 bg-blue-lt shadow-none">
-            <div class="card-body">
-                <h6 class="mb-1 fw-normal status-blue">
-                    <span class="status-dot status-dot-animated me-2"></span>
-                    Public
-                </h6>
-                <h4 class="m-0 fw-bolder">Workspace Saya</h4>
-                <a href="#" class="bg-blue p-2 rounded-10 shadow button-fly">
-                    {!! App\Models\GlobalModel::my_icon()->eye !!}
-                </a>
-            </div>
-        </div>
-        <div class="card mt-4 rounded-20 border-0 bg-orange-lt shadow-none">
-            <div class="card-body">
-                <h6 class="mb-1 fw-normal status-orange">
-                    <span class="status-dot status-dot-animated me-2"></span>
-                    Private
-                </h6>
-                <h4 class="m-0 fw-bolder">Workspace Saya Project...</h4>
-                <a href="#" class="bg-orange p-2 rounded-10 shadow button-fly">
-                    {!! App\Models\GlobalModel::my_icon()->eye !!}
-                </a>
-            </div>
-        </div>
+        @endforeach
     </div>
     <div class="col-lg-9 ps-lg-4">
         <div class="card shadow-none border-0 rounded-20 mt-3">
@@ -64,10 +33,10 @@
             </div>
             <div class="card-body">
                 <h2 class="h2">
-                    <span class="status status-orange bg-orange-lt me-3">
+                    <span class="status status-blue bg-blue-lt me-3">
                         <span class="status-dot status-dot-animated"></span>
                     </span>
-                    Workspace Saya
+                    {{ $workspaces[0]->title }}
                 </h2>
                 <div class="btn-list mt-4">
                     <a href="#" class="btn rounded-10">
@@ -98,37 +67,40 @@
         </div>
         <!-- List -->
         <div class="row row-cards" id="list-data">
-            <div class="col-md-3 p-2">
-                <div class="card card-sm rounded-10 shadow-none border-0">
-                    <div class="card-body p-2">
-
+            <div class="col-md-4 col-lg-3 p-2">
+                <div class="card card-sm rounded-10 shadow-none border-0 hover-shadow-primary" style="max-height: 100px; height: 100px">
+                    <div class="card-body px-2 py-2 text-center">
+                        <span class="h3">Buat Baru</span>
+                        <div class="mt-3">
+                            <span class="text-dark p-2 bg-light-blue rounded-10">
+                                {!! App\Models\GlobalModel::my_icon()->plus !!}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 p-2">
-                <div class="card card-sm rounded-10 shadow-none border-0">
-                    <div class="card-body p-2">
-
+            @foreach($workspaces[0]->project as $val)
+            <div class="col-md-4 col-lg-3 p-2">
+                <div class="card card-sm rounded-10 shadow-none border-0 hover-shadow-primary" style="max-height: 100px; height: 100px">
+                    <div class="card-body px-2 py-2 text-center">
+                        <span class="h3">{{ $val->title }}</span>
+                        <div class="button-box-fly-center">
+                            <span class="p-2 bg-light-blue rounded-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M3 12h4l3 8l4 -16l3 8h4" />
+                                </svg>
+                                {{ $val->total_task }}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 p-2">
-                <div class="card card-sm rounded-10 shadow-none border-0">
-                    <div class="card-body p-2">
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 p-2">
-                <div class="card card-sm rounded-10 shadow-none border-0">
-                    <div class="card-body p-2">
-
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
+@endif
 
 @endsection
 @section('modal')

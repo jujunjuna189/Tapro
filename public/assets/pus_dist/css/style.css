@@ -1,7 +1,27 @@
+.bg-white {
+    background-color: #ffffff;
+}
+
+.bg-light-blue {
+    background-color: #f5f7fb;
+}
+
 .button-fly {
     position: absolute;
     right: 20px;
     bottom: -15px;
+}
+
+.hover-shadow-primary:hover {
+    cursor: pointer;
+    box-shadow: rgba(35, 40, 87, 0.075) 0px 48px 100px 0px !important;
+}
+
+.button-box-fly-center {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -13px;
 }
 
 .overflow-height {
