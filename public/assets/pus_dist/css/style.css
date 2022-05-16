@@ -1,6 +1,20 @@
+.button-fly {
+    position: absolute;
+    right: 20px;
+    bottom: -15px;
+}
+
 .overflow-height {
     max-height: 80vh;
     overflow-y: auto;
+}
+
+.rounded-10 {
+    border-radius: 10px;
+}
+
+.rounded-20 {
+    border-radius: 20px;
 }
 
 .form-block {

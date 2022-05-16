@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GlobalModel;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    private $title = 'Dashboard';
     /**
      * Create a new controller instance.
      *
@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        $data['title'] = $this->title;
+        $data['page'] = GlobalModel::nav_menus(0);
 
         return view('home', $data);
     }
