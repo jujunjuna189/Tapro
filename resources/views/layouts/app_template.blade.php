@@ -26,11 +26,11 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3 d-flex d-md-none">
+                <!-- <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3 d-flex d-md-none">
                     <a href=".">
                         <img src="{{ asset('assets/dist/img/logo/logo.svg') }}" width="110" height="32" alt="Tabler" class="navbar-brand-image">
                     </a>
-                </h1>
+                </h1> -->
                 <div class="navbar-nav flex-row order-md-last">
                     <div class="d-none d-md-flex">
                         <div class="nav-item dropdown me-4">
