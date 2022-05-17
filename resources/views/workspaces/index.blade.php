@@ -81,7 +81,7 @@
             </div>
             @foreach($workspaces[0]->project as $val)
             <div class="col-md-4 col-lg-3 p-2">
-                <div class="card card-sm rounded-10 shadow-none border-0 hover-shadow-primary" style="max-height: 100px; height: 100px">
+                <div class="card card-sm rounded-10 shadow-none border-0 hover-shadow-primary" style="max-height: 100px; height: 100px" onclick="window.open('<?= route('workspace.task') ?>', '_parent')">
                     <div class="card-body px-2 py-2 text-center">
                         <span class="h3">{{ $val->title }}</span>
                         <div class="button-box-fly-center">
