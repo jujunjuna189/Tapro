@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorkspace extends Migration
+class CreateTask extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateWorkspace extends Migration
      */
     public function up()
     {
-        Schema::create('workspace', function (Blueprint $table) {
+        Schema::create('task', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('description');
-            $table->enum('visibility', ['private', 'public']);
+            $table->bigInteger('project_id');
+            $table->string('task');
+            $table->boolean('deleted');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateWorkspace extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workspace');
+        Schema::dropIfExists('task');
     }
 }

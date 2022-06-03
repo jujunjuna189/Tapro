@@ -52,12 +52,7 @@
         </div>
         <div class="row mt-4">
             <div class="col-md-12">
-                <div class="btn-list d-flex justify-content-center">
-                    <a href="#" class="btn rounded-10 bg-dark-lt" role="button">{!! App\Models\GlobalModel::my_icon()->layer_grid !!} Projek</a>
-                    <a href="#" class="btn rounded-10 bg-dark-lt" role="button">{!! App\Models\GlobalModel::my_icon()->layout_board !!} Tugas</a>
-                    <a href="#" class="btn rounded-10 bg-dark-lt" role="button">{!! App\Models\GlobalModel::my_icon()->users !!} Tim <sup class="ms-1 text-red">16</sup> </a>
-                    <a href="#" class="btn rounded-10 bg-dark-lt" role="button">{!! App\Models\GlobalModel::my_icon()->setting !!} Pengaturan</a>
-                </div>
+                <x-sub-nav.nav-workspace />
             </div>
             <div class="col-md-12">
                 <div class="mt-3">
