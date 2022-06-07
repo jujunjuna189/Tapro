@@ -187,4 +187,11 @@ class GlobalModel extends Model
 
         return $day;
     }
+
+    protected static function overlayText($value)
+    {
+        $value = strlen($value) > 50 ? substr($value, 0, 50) . '...' : $value;
+
+        return $value;
+    }
 }
