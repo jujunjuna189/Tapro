@@ -8,7 +8,7 @@
             <form action="#" method="post" id="form-task">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <textarea name="title" id="final_span" cols="30" rows="4" class="form-control" autofocus placeholder="Judul tugas ..."></textarea>
+                        <textarea name="title" id="final_span" cols="30" rows="4" class="form-control" autofocus required placeholder="Judul tugas ..."></textarea>
                     </div>
                     <div class="mt-4"></div>
                     <div class="d-flex justify-content-between">
