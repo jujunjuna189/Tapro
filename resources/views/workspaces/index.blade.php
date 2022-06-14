@@ -8,7 +8,7 @@
 @if(count($workspaces) > 1)
 <div class="row">
     <div class="d-none d-lg-block col-lg-3">
-        <h4 class="strong fw-bold mb-4">Workspace's</h4>
+        <h4 class="strong fw-bold mb-4">Ruang Kerja</h4>
         @foreach($workspaces as $val)
         <div class="card rounded-20 mt-4 border-0 bg-{{ $val->color }}-lt shadow-none">
             <div class="card-body">
