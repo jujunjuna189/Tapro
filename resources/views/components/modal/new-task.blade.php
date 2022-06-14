@@ -1,14 +1,14 @@
-<div class="modal modal-blur fade" id="modal-project" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal modal-blur fade" id="modal-task" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Buat Baru</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="#" method="post" id="form-project">
+            <form action="#" method="post" id="form-task">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <textarea name="title" id="final_span" cols="30" rows="4" class="form-control" autofocus placeholder="Judul tugas utama ..."></textarea>
+                        <textarea name="title" id="final_span" cols="30" rows="4" class="form-control" autofocus placeholder="Judul tugas ..."></textarea>
                     </div>
                     <div class="mt-4"></div>
                     <div class="d-flex justify-content-between">

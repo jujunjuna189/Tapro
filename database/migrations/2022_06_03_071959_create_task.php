@@ -16,7 +16,8 @@ class CreateTask extends Migration
         Schema::create('task', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('project_id');
-            $table->string('task');
+            $table->string('title');
+            $table->boolean('completed');
             $table->boolean('deleted');
             $table->timestamps();
         });

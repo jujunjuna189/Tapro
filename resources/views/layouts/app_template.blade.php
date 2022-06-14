@@ -71,7 +71,7 @@
                                             </div>
                                             <div class="col-auto">
                                                 <a href="#" class="list-group-item-actions">
-                                                {!! App\Models\GlobalModel::my_icon()->plus !!}
+                                                    {!! App\Models\GlobalModel::my_icon()->plus !!}
                                                 </a>
                                             </div>
                                         </div>
@@ -1064,12 +1064,17 @@
     <script src="{{ asset('assets/pus_dist/lib/recognation/speechToText.js') }}"></script>
     <script src="{{ asset('assets/pus_dist/lib/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/pus_dist/lib/stacked-cards-master/dist/stackedCards.min.js') }}"></script>
+    <!-- Chart JustGage -->
+    <script src="{{ asset('assets/pus_dist/lib/justgage/raphael-2.1.4.min.js') }}"></script>
+    <script src="{{ asset('assets/pus_dist/lib/justgage/justgage.js') }}"></script>
+    <!-- Custome Js -->
     <script src="{{ asset('assets/pus_dist/js/script.js') }}"></script>
     <script>
         let url = "<?= url('') ?>";
         let token = "<?= Illuminate\Support\Facades\Session::token() ?>";
     </script>
     @yield('script')
+    @stack('script')
 </body>
 
 </html>

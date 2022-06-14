@@ -37,6 +37,15 @@
     border-radius: 20px;
 }
 
+.rounded-20-left {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.shadow-min-sm {
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+}
+
 .form-block {
     display: block;
     padding: 0.4375rem 2.25rem 0.4375rem 0.75rem;
