@@ -45,7 +45,7 @@
                     </a>
                     <a href="#" class="btn bg-red-lt rounded-10">
                         {!! App\Models\GlobalModel::my_icon()->bell_ringing !!}
-                        Subscribe
+                        Mengikuti
                     </a>
                 </div>
             </div>
