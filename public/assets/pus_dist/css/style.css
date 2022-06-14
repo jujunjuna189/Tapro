@@ -24,6 +24,10 @@
     bottom: -13px;
 }
 
+.checkbox-custome {
+    border: 2px solid #474747;
+}
+
 .overflow-height {
     max-height: 80vh;
     overflow-y: auto;
@@ -43,7 +47,8 @@
 }
 
 .shadow-min-sm {
-    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset,
+        rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
 }
 
 .form-block {

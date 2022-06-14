@@ -12,11 +12,17 @@ class TaskList extends Component
      * @return void
      */
 
+    public $id;
     public $title;
+    public $completed;
+    public $deleted;
 
-    public function __construct($title)
+    public function __construct($id, $title, $completed = false, $deleted = false)
     {
+        $this->id = $id;
         $this->title = $title;
+        $this->completed = $completed;
+        $this->deleted = $deleted;
     }
 
     /**

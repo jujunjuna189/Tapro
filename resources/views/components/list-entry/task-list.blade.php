@@ -4,7 +4,11 @@
             <span class="h3">{{ $title }}</span>
         </div>
         <div class="ms-auto">
-            <input class="form-check-input" type="checkbox">
+            @if($completed)
+            <input class="form-check-input checkbox-custome" type="checkbox" checked onclick="onTaskCompleted(this, '{{ $id }}')">
+            @else
+            <input class="form-check-input checkbox-custome" type="checkbox" onclick="onTaskCompleted(this, '{{ $id }}')">
+            @endif
         </div>
     </div>
 </div>

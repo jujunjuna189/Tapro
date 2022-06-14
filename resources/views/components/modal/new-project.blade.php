@@ -17,8 +17,8 @@
                                 Batal
                             </a>
                         </div>
-                        <div class="rounded-circle input-group-text bg-white cursor-pointer" style="padding-top: 12px; padding-bottom: 12px;">
-                            <a href="#" class="link-secondary " title="Speech" data-bs-toggle="tooltip" onclick="startButton(event)">
+                        <div class="rounded-circle input-group-text bg-white cursor-pointer" style="padding-top: 12px; padding-bottom: 12px;" onclick="startButton(event)">
+                            <a href="#" class="link-secondary " title="Speech" data-bs-toggle="tooltip">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-mic-toggle text-dark" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <rect x="9" y="2" width="6" height="11" rx="3" />

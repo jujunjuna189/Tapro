@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="col-md-6 text-center pt-3">
-        <span class="fw-bold h1">Project Title</span>
+        <span class="fw-bold h1">{{ $project->title }}</span>
         <div class="d-flex mt-3 justify-content-center">
             <div class="me-3">
                 <div class="d-md-flex me-3">
@@ -93,10 +93,10 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12">
-        <x-list-entry.task-list title="List 1" />
-        <x-list-entry.task-list title="List 2" />
-        <x-list-entry.task-list title="List 3" />
+    <div class="col-md-12" id="list-task">
+        @foreach($project->task as $val)
+        <x-list-entry.task-list :id="$val->id" :title="$val->title" :completed="$val->completed" />
+        @endforeach
     </div>
 </div>
 @endsection
@@ -110,35 +110,118 @@
 
 @section('script')
 <script>
+    // Setting data and modal
+    // Data
+    let data_task = <?= json_encode($project->task) ?>;
+    // =========================================================================================================
+    // Modal New task (Start)
+    // =========================================================================================================
+    // --- Modal task --- Setting modal new task
+    let parentTaskModal = '#modal-task';
+    let modalTaskUpload = '#form-task';
+    // Form data
+    let modalTaskTitle = 'textarea[name="title"]';
+    // Task list
+    let taskViewList = '#list-task';
+    let checkBoxTask = taskViewList + ' ' + 'input[type="checkbox"]';
+    // Chart jusgage
+    let jusgageChart;
+
+    // Modal on submit
     $(document).ready(function() {
-        var jusgage = new JustGage({
-            id: 'jusgage',
-            value: 50,
-            min: 0,
-            max: 100,
-            symbol: '%',
-            donut: true,
-            pointer: true,
-            gaugeWidthScale: 0.7,
-            shadowOpacity: 0.6,
-            shadowSize: 5,
-            pointerOptions: {
-                toplength: 10,
-                bottomlength: 10,
-                bottomwidth: 8,
-                color: '#000'
-            },
-            customSectors: [{
-                color: "#4299e1",
-                lo: 50,
-                hi: 100
-            }, {
-                color: "#4299e1",
-                lo: 0,
-                hi: 50
-            }],
-            counter: true
-        });
+        onSubmitTask();
+        jusgageChart = chartJusgage(0);
+        countPercent(data_task);
     });
+
+    // Void on submit
+    const onSubmitTask = () => {
+        $(parentTaskModal + ' ' + modalTaskUpload).on('submit', function(e) {
+            e.preventDefault();
+            recognition.stop(); //from recognition start file
+            uploadDataTask();
+        });
+    }
+
+    // get data on form task
+    const getDataFormTask = () => {
+        let last_id = data_task[(data_task.length - 1)].id + 1;
+        let title = $(parentTaskModal + ' ' + modalTaskTitle).val();
+        let completed = false;
+        let deleted = false;
+
+        let array = {
+            id: last_id,
+            title: title,
+            share: [],
+            completed: completed,
+            deleted: deleted,
+        };
+
+        // Clear form
+        $(parentTaskModal + ' ' + modalTaskTitle).val('');
+
+        return array;
+    }
+
+    // Upload data
+    const uploadDataTask = () => {
+        pushTaskData(getDataFormTask());
+    }
+
+    const pushTaskData = (object) => {
+        data_task.push(object);
+        drawTask(data_task);
+    }
+
+    // Draw list
+    const drawTask = (array) => {
+        $(taskViewList).empty();
+        let view = '';
+        $.each(array, function(i, row) {
+            let check = row.completed ? '<input class="form-check-input checkbox-custome" type="checkbox" checked onclick="onTaskCompleted(this, \'' + row.id + '\')">' : '<input class="form-check-input checkbox-custome" type="checkbox" onclick="onTaskCompleted(this, \'' + row.id + '\')">';
+            view += '<div class="card card-sm rounded-20-left shadow-none border-0 hover-shadow-primary mb-2">' +
+                    '<div class="card-body px-3 py-3 d-flex align-items-center justify-content-start">' +
+                    '<div>' +
+                    '<span class="h3"> ' + row.title + '</span>' +
+                    '</div>' +
+                    '<div class="ms-auto">' +
+                    check +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+        });
+
+        $(taskViewList).prepend(view);
+        countPercent(array);
+    }
+
+    // void count percent
+    const countPercent = (array_task) => {
+        let taskCompleted = 0;
+        $.each(array_task, function(i, row){
+            taskCompleted += row.completed ?? 1;
+        });
+
+        let total_task = array_task.length;
+        let percentage = (taskCompleted / total_task) * 100;
+
+        jusgageChart.refresh(percentage);
+    }
+    // If checked task completed
+    const onTaskCompleted = (event, id) => {
+        let check = $(event).is(':checked');
+        var dataIndex = data_task.findIndex((x) => x.id == id);
+        if(check){
+            data_task[dataIndex].completed = true;
+        }else{
+            data_task[dataIndex].completed = false;
+        }
+
+        countPercent(data_task);
+    }
+    // =========================================================================================================
+    // Modal New Task (End)
+    // =========================================================================================================
 </script>
 @endsection
