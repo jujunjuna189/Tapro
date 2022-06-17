@@ -8,21 +8,7 @@
 @if(count($workspaces) > 1)
 <div class="row">
     <div class="d-none d-lg-block col-lg-3">
-        <h4 class="strong fw-bold mb-4">Ruang Kerja</h4>
-        @foreach($workspaces as $val)
-        <div class="card rounded-20 mt-4 border-0 bg-{{ $val->color }}-lt shadow-none">
-            <div class="card-body">
-                <h6 class="mb-1 fw-normal status-{{ $val->color }}">
-                    <span class="status-dot status-dot-animated me-2"></span>
-                    {{ $val->visibility }}
-                </h6>
-                <h4 class="m-0 fw-bolder">{{ $val->title }}</h4>
-                <a href="#" class="bg-{{ $val->color }} p-2 rounded-10 shadow button-fly">
-                    {!! App\Models\GlobalModel::my_icon()->eye !!}
-                </a>
-            </div>
-        </div>
-        @endforeach
+        <x-sub-page.workspace :result="$workspaces" />
     </div>
     <div class="col-lg-9 ps-lg-4">
         <div class="card shadow-none border-0 rounded-20 mt-3">
@@ -56,17 +42,19 @@
             </div>
         </div>
         <!-- List Task Utama-->
-        <x-project-page.project :result="$workspaces[0]->project" />
+        <x-sub-page.project :result="$project" />
         <!-- Task -->
-        <x-project-page.task :result="$workspaces[0]->project" />
+        <x-sub-page.task :result="$project" />
         <!-- Member -->
-        <x-project-page.member :result="$workspaces[0]->project" />
+        <x-sub-page.member :result="$project" />
     </div>
 </div>
 @endif
 
 @endsection
 @section('modal')
+<!-- Modal for new Project -->
+<x-modal.new-workspace />
 <!-- Modal for new Project -->
 <x-modal.new-project />
 <!-- Modal for share -->

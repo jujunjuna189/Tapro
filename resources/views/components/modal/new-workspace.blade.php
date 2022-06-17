@@ -1,14 +1,14 @@
-<div class="modal modal-blur fade" id="modal-task" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal modal-blur fade" id="modal-workspace" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Buat Baru</h5>
+                <h5 class="modal-title">Buat Ruang Kerja</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="#" method="post" id="form-task">
+            <form action="#" method="post" id="form-workspace">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <textarea name="title" id="final_span" cols="30" rows="4" class="form-control" autofocus required placeholder="Judul tugas..."></textarea>
+                        <textarea name="title" id="final_span" cols="30" rows="4" class="form-control" autofocus required placeholder="Judul ruang kerja..."></textarea>
                     </div>
                     <div class="mt-4"></div>
                     <div class="d-flex justify-content-between">
@@ -17,7 +17,7 @@
                                 Batal
                             </a>
                         </div>
-                        <div class="rounded-circle input-group-text bg-white cursor-pointer" style="padding-top: 12px; padding-bottom: 12px;" onclick="startButton(event, '#modal-task #final_span')">
+                        <div class="rounded-circle input-group-text bg-white cursor-pointer" style="padding-top: 12px; padding-bottom: 12px;" onclick="startButton(event, '#modal-workspace #final_span')">
                             <a href="#" class="link-secondary " title="Speech" data-bs-toggle="tooltip">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-mic-toggle text-dark" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -78,7 +78,7 @@
         });
 
         //On Modal Close
-        $("#modal-task").on('hide.bs.modal', function() {
+        $("#modal-workspace").on('hide.bs.modal', function() {
             recognition.stop();
         });
     });

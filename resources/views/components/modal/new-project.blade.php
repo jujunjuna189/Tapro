@@ -17,7 +17,7 @@
                                 Batal
                             </a>
                         </div>
-                        <div class="rounded-circle input-group-text bg-white cursor-pointer" style="padding-top: 12px; padding-bottom: 12px;" onclick="startButton(event)">
+                        <div class="rounded-circle input-group-text bg-white cursor-pointer" style="padding-top: 12px; padding-bottom: 12px;" onclick="startButton(event, '#modal-project #final_span')">
                             <a href="#" class="link-secondary " title="Speech" data-bs-toggle="tooltip">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-mic-toggle text-dark" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -64,7 +64,7 @@
             if (window.getSelection) {
                 window.getSelection().removeAllRanges();
                 var range = document.createRange();
-                range.selectNode(document.getElementById('final_span'));
+                range.selectNode($(recognitionFinalSpanParent));
                 window.getSelection().addRange(range);
             }
             if (create_email) {
@@ -73,35 +73,14 @@
             }
         };
 
-        $('#final_span').on('keyup', function() {
+        $(recognitionFinalSpanParent).on('keyup', function() {
+            recognition.stop();
+        });
+
+        //On Modal Close
+        $("#modal-project").on('hide.bs.modal', function() {
             recognition.stop();
         });
     });
-
-    // Funtion untuk memulai recognition
-    // =========================================================================================================
-    function startButton(event) {
-        toggle_icon_color('.icon-mic-toggle', 'text-azure', 'text-dark');
-        if (recognizing) {
-            // Set list 
-            toggle_icon_color('.icon-mic-toggle', 'text-dark', 'text-azure');
-            recognition.stop();
-            return;
-        }
-        final_transcript = '';
-        recognition.lang = default_language;
-        recognition.start();
-        ignore_onend = false;
-        final_span.value = '';
-        showInfo('info_allow');
-        start_timestamp = event.timeStamp;
-    }
-
-    // Funtion untuk megubah warna pada icon microfon di modal task_list
-    // =========================================================================================================
-    const toggle_icon_color = (element, class_add, class_remove) => {
-        $(element).addClass(class_add);
-        $(element).removeClass(class_remove);
-    }
 </script>
 @endpush

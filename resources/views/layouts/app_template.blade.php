@@ -14,6 +14,10 @@
     <link href="{{ asset('assets/dist/css/demo.min.css') }}" rel="stylesheet" />
     <!-- Pus Dist -->
     <link href="{{ asset('assets/pus_dist/css/style.css') }}" rel="stylesheet" />
+    <!-- Toast -->
+    <link rel="stylesheet" href="{{ asset('assets/pus_dist/lib/jquery-toast-plugin/jquery.toast.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/pus_dist/lib/sweetalert/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+    <!-- ....... -->
 </head>
 
 <body class="layout-fluid theme-light">
@@ -286,7 +290,7 @@
     <script src="{{ asset('assets/dist/js/tabler.min.js') }}"></script>
     <script src="{{ asset('assets/dist/libs/litepicker/dist/litepicker.js') }}"></script>
     <script src="{{ asset('assets/dist/js/demo.min.js') }}"></script>
-    
+    <!-- ............. -->
     <!-- Hiiden Custome -->
     <div id="info" hidden class="hidden"></div>
     <script src="{{ asset('assets/pus_dist/lib/recognation/speechToText.js') }}"></script>
@@ -294,14 +298,30 @@
     <!-- Chart JustGage -->
     <script src="{{ asset('assets/pus_dist/lib/justgage/raphael-2.1.4.min.js') }}"></script>
     <script src="{{ asset('assets/pus_dist/lib/justgage/justgage.js') }}"></script>
+    <!-- Toast and sweetalert -->
+    <script src="{{ asset('assets/pus_dist/lib/jquery-toast-plugin/jquery.toast.min.js') }}"></script>
+    <script src="{{ asset('assets/pus_dist/lib/sweetalert/sweetalert2/sweetalert2.min.js') }}"></script>
     <!-- Custome Js -->
     <script src="{{ asset('assets/pus_dist/js/script.js') }}"></script>
+
     <script>
         let url = "<?= url('') ?>";
         let token = "<?= Illuminate\Support\Facades\Session::token() ?>";
     </script>
     @yield('script')
     @stack('script')
+    <!-- Notif -->
+    @if(session('success'))
+    <script>
+        notif('<?= session('success') ?>', 'info');
+    </script>
+    @endif
+
+    @if(session('failed'))
+    <script>
+        notif('<?= session('failed') ?>', 'error');
+    </script>
+    @endif
 </body>
 
 </html>

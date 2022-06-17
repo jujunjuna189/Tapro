@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\ProjectPage;
+namespace App\View\Components\SubPage;
 
 use Illuminate\View\Component;
 
-class Project extends Component
+class Workspace extends Component
 {
     /**
      * Create a new component instance.
@@ -26,6 +26,6 @@ class Project extends Component
      */
     public function render()
     {
-        return view('components.project-page.project');
+        return view('components.sub-page.workspace');
     }
 }

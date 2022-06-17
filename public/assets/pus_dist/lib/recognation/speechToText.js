@@ -70,6 +70,7 @@ var final_transcript = '';
 var recognizing = false;
 var ignore_onend;
 var start_timestamp;
+var recognitionFinalSpanParent = '';
 if (!('webkitSpeechRecognition' in window)) {
     upgrade();
 } else {
@@ -118,7 +119,7 @@ if (!('webkitSpeechRecognition' in window)) {
         if (window.getSelection) {
             window.getSelection().removeAllRanges();
             var range = document.createRange();
-            range.selectNode(document.getElementById('final_span'));
+            range.selectNode(document.querySelector(recognitionFinalSpanParent));
             window.getSelection().addRange(range);
         }
         if (create_email) {
@@ -139,9 +140,9 @@ if (!('webkitSpeechRecognition' in window)) {
 
         console.log(event.results);
         final_transcript = capitalize(final_transcript);
-        final_span.value = linebreak(final_transcript + interim_transcript);
-        final_span.focus();
-        final_span.scrollTop = final_span.scrollHeight;
+        document.querySelector(recognitionFinalSpanParent).value = linebreak(final_transcript + interim_transcript);
+        document.querySelector(recognitionFinalSpanParent).focus();
+        document.querySelector(recognitionFinalSpanParent).scrollTop = document.querySelector(recognitionFinalSpanParent).scrollHeight;
 
         if (final_transcript || interim_transcript) {
             // showButtons('inline-block');
@@ -207,7 +208,7 @@ function startButton(event) {
     recognition.lang = default_language;
     recognition.start();
     ignore_onend = false;
-    final_span.value = '';
+    document.querySelector(recognitionFinalSpanParent).value = '';
     // start_img.src = 'mic-slash.gif';
     showInfo('info_allow');
     // showButtons('none');

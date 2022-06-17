@@ -1,19 +1,22 @@
 <?php
 
-namespace App\View\Components\ProjectPage;
+namespace App\View\Components\SubPage;
 
 use Illuminate\View\Component;
 
-class Setting extends Component
+class Member extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+
+    public $result;
+
+    public function __construct($result)
     {
-        //
+        $this->result = $result;
     }
 
     /**
@@ -23,6 +26,6 @@ class Setting extends Component
      */
     public function render()
     {
-        return view('components.project-page.setting');
+        return view('components.sub-page.member');
     }
 }

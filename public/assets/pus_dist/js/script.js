@@ -81,3 +81,108 @@ const chartJusgage = (value = 0) => {
 
     return jusgage;
 };
+// For Toast and sweetalert
+const swal_loader = (message) => {
+    $(function () {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-right',
+            showConfirmButton: false,
+            onOpen: function () {
+                swal.showLoading();
+            },
+        });
+
+        Toast.fire({
+            icon: false,
+            background: '#fff',
+            title: message,
+        })
+    });
+}
+
+const close_swal = (notif_status = true, message = 'Success', icon = 'success') => {
+    setTimeout(function () {
+        Swal.close()
+
+        if (notif_status) {
+            notif(message, icon);
+        }
+    }, 1000)
+}
+
+const notif = (message = '', icon = false) => {
+    $(function () {
+        'use strict';
+        resetToastPosition();
+        $.toast({
+            heading: 'Notifikasi',
+            text: message,
+            showHideTransition: 'slide',
+            position: 'top-right',
+            icon: icon,
+            stack: false,
+            loaderBg: '#57c7d4',
+        })
+    });
+}
+
+const resetToastPosition = () => {
+    $('.jq-toast-wrap').removeClass('bottom-left bottom-right top-left top-right mid-center'); // to remove previous position class
+    $(".jq-toast-wrap").css({
+        "top": "",
+        "left": "",
+        "bottom": "",
+        "right": ""
+    }); //to remove previous position style
+}
+// For recognition
+// Funtion untuk memulai recognition Custome
+// =========================================================================================================
+function startButton(event, target) {
+    recognitionFinalSpanParent = target;
+    toggle_icon_color('.icon-mic-toggle', 'text-azure', 'text-dark');
+    if (recognizing) {
+        // Set list 
+        toggle_icon_color('.icon-mic-toggle', 'text-dark', 'text-azure');
+        recognition.stop();
+        return;
+    }
+    final_transcript = '';
+    recognition.lang = default_language;
+    recognition.start();
+    ignore_onend = false;
+    final_span.value = '';
+    showInfo('info_allow');
+    start_timestamp = event.timeStamp;
+}
+
+// Funtion untuk megubah warna pada icon microfon di modal task_list
+// =========================================================================================================
+const toggle_icon_color = (element, class_add, class_remove) => {
+    $(element).addClass(class_add);
+    $(element).removeClass(class_remove);
+}
+
+const uploadData = (url, type, data) => {
+    $.ajax({
+        url: url,
+        type: type,
+        dataType: 'json',
+        data: {
+            data: data,
+        },
+        headers: {
+            'X-CSRF-TOKEN': token,
+        },
+        beforeSend: function () {
+            swal_loader('Sedang unggah data...');
+        },
+        success: function (data) {
+
+        },
+        error: function (error) {
+            close_swal(true, 'Terjadi kesalahan saat unggah data', 'error');
+        }
+    });
+}

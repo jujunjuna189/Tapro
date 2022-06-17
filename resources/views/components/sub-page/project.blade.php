@@ -67,6 +67,7 @@
     // Modal on submit
     $(document).ready(function() {
         onSubmitProject();
+        notif("Hello", 'info');
     });
 
     // Void on submit

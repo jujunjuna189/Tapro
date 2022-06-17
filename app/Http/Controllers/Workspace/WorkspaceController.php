@@ -19,8 +19,8 @@ class WorkspaceController extends Controller
                     'id' => 1,
                     'title' => 'Task 1',
                     'share' => [],
-                    'completed' => false,
-                    'deleted' => false,
+                    'completed' => true,
+                    'deleted' => true,
                 ],
                 (object)[
                     'id' => 2,
