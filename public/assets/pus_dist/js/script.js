@@ -118,10 +118,14 @@ const notif = (message = '', icon = false) => {
         $.toast({
             heading: 'Notifikasi',
             text: message,
-            showHideTransition: 'slide',
-            position: 'top-right',
+            showHideTransition: 'plain',
+            position: {
+                right: 20,
+                top: 70
+            },
             icon: icon,
             stack: false,
+            loader: false,
             loaderBg: '#57c7d4',
         })
     });
