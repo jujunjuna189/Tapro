@@ -17,19 +17,19 @@ class WorkspaceController extends Controller
 
             $create = WorkspaceModel::create($data);
 
-            if($create){
+            if ($create) {
                 return response()->json([
                     'status' => 'Success',
                     'data' => $create,
                 ], 200);
-            }else{
+            } else {
                 return response()->json([
                     'status' => 'Failed',
                     'data' => [
                         'Failed Create Data'
                     ],
                 ], 300);
-            }   
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'Failed',
@@ -45,27 +45,26 @@ class WorkspaceController extends Controller
         try {
             $dataRequest = $request;
             $id = $dataRequest->id;
-            
+
             $data['title'] = $dataRequest->title;
             $data['description'] = $dataRequest->description;
             $data['visibility'] = $dataRequest->visibility;
 
-            $result = WorkspaceModel::find($id);
-            $update = $result->update($data);
+            $update = WorkspaceModel::where('id', $id)->update($data);
 
-            if($update){
+            if ($update) {
                 return response()->json([
                     'status' => 'Success',
-                    'data' => $update,
+                    'data' => $data,
                 ], 200);
-            }else{
+            } else {
                 return response()->json([
                     'status' => 'Failed',
                     'data' => [
                         'Failed Update Data'
                     ],
                 ], 300);
-            }   
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'Failed',
@@ -78,5 +77,34 @@ class WorkspaceController extends Controller
 
     public function delete(Request $request)
     {
+        try {
+            $dataRequest = $request;
+            $id = $dataRequest->id;
+
+            $delete = WorkspaceModel::where('id', $id)->delete();
+
+            if ($delete) {
+                return response()->json([
+                    'status' => 'Success',
+                    'data' => [
+                        'Success Delete Data'
+                    ],
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => 'Failed',
+                    'data' => [
+                        'Failed Delete Data'
+                    ],
+                ], 300);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'Failed',
+                'data' => [
+                    'Server error'
+                ],
+            ], 500);
+        }
     }
 }
