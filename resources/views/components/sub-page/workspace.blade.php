@@ -75,6 +75,12 @@
     // Upload data
     const uploadDataWorkspace = () => {
         pushWorkspaceData(getDataFormWorkspace());
+        uploadDataServer({
+            url: url,
+            onSuccess: function(data) {
+                console.log(data);
+            }
+        });
     }
 
     const pushWorkspaceData = (object) => {

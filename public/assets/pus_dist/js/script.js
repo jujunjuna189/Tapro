@@ -119,10 +119,7 @@ const notif = (message = '', icon = false) => {
             heading: 'Notifikasi',
             text: message,
             showHideTransition: 'plain',
-            position: {
-                right: 20,
-                top: 70
-            },
+            position: 'top-right',
             icon: icon,
             stack: false,
             loader: false,
@@ -168,7 +165,7 @@ const toggle_icon_color = (element, class_add, class_remove) => {
     $(element).removeClass(class_remove);
 }
 
-const uploadData = (url, type, data) => {
+const uploadDataServer = ({ url = '', type = 'post', data = [], onSuccess }) => {
     $.ajax({
         url: url,
         type: type,
@@ -183,7 +180,7 @@ const uploadData = (url, type, data) => {
             swal_loader('Sedang unggah data...');
         },
         success: function (data) {
-
+            onSuccess(data);
         },
         error: function (error) {
             close_swal(true, 'Terjadi kesalahan saat unggah data', 'error');
