@@ -3,32 +3,31 @@
 namespace App\Http\Controllers\ApiController;
 
 use App\Http\Controllers\Controller;
-use App\Models\TaskModel;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
-class TaskController extends Controller
+class AuthController extends Controller
 {
-
-    public function data(Request $request)
+    public function login(Request $request)
     {
         try {
             $dataRequest = $request;
-            $project = (new ProjectController)->data($dataRequest); //just project id
-            $project = $project->original['data'][0];
 
-            $result = $project->task;
+            $where['email'] = $dataRequest->email;
+            $result = User::where($where)->first();
 
-            if ($result) {
+            if (Hash::check($dataRequest->password, $result->password, [])) {
                 return response()->json([
                     'status' => 'Success',
-                    'data' => $result,
+                    'data' => [$result],
                 ], 200);
             } else {
                 return response()->json([
                     'status' => 'Failed',
                     'data' => [
-                        'Failed Get Data'
+                        'Failed Login'
                     ],
                 ], 300);
             }
@@ -42,28 +41,27 @@ class TaskController extends Controller
         }
     }
 
-    public function create(Request $request)
+    public function register(Request $request)
     {
         try {
             $dataRequest = $request;
 
-            $data['project_id'] = $dataRequest->project_id;
-            $data['title'] = $dataRequest->title;
-            $data['completed'] = false;
-            $data['deleted'] = false;
+            $data['name'] = $dataRequest->name;
+            $data['email'] = $dataRequest->email;
+            $data['password'] = Hash::make($dataRequest->password);
 
-            $create = TaskModel::create($data);
+            $register = User::create($data);
 
-            if ($create) {
+            if ($register) {
                 return response()->json([
                     'status' => 'Success',
-                    'data' => $create,
+                    'data' => [$register],
                 ], 200);
             } else {
                 return response()->json([
                     'status' => 'Failed',
                     'data' => [
-                        'Failed Create Data'
+                        'Failed Register Data'
                     ],
                 ], 300);
             }
@@ -75,13 +73,5 @@ class TaskController extends Controller
                 ],
             ], 500);
         }
-    }
-
-    public function update()
-    {
-    }
-
-    public function delete()
-    {
     }
 }
