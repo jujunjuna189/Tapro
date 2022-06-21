@@ -77,8 +77,39 @@ class TaskController extends Controller
         }
     }
 
-    public function update()
+    public function update(Request $request)
     {
+        try {
+            $dataRequest = $request;
+            $id = $dataRequest->id;
+
+            $data['title'] = $dataRequest->title;
+            $data['completed'] = $dataRequest->completed;
+            $data['deleted'] = $dataRequest->deleted;
+
+            $update = TaskModel::where('id', $id)->update($data);
+
+            if ($update) {
+                return response()->json([
+                    'status' => 'Success',
+                    'data' => $data,
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => 'Failed',
+                    'data' => [
+                        'Failed Update Data'
+                    ],
+                ], 300);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'Failed',
+                'data' => [
+                    $e
+                ],
+            ], 500);
+        }
     }
 
     public function delete()
