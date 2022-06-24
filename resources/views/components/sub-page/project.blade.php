@@ -9,7 +9,7 @@
     <div class="row row-cards mt-1" id="list-project">
         @foreach($result as $val)
         <div class="col-md-4 col-lg-3 p-2">
-            <div class="card card-sm rounded-10 shadow-none border-0 hover-shadow-primary h-100" onclick="window.open('<?= route('workspace.task') ?>', '_parent')">
+            <div class="card card-sm rounded-10 shadow-none border-0 hover-shadow-primary h-100" onclick="window.open('<?= $val->url_open ?>', '_parent')">
                 <div class="card-body px-3 py-3 text-center">
                     <span class="h3">{{ $val->title }}</span>
                     <div class="my-3">
@@ -52,6 +52,7 @@
 @push('script')
 <script>
     // Data
+    let workspace_id = <?= json_encode($workspaceId) ?>;
     let data_project = <?= json_encode($result) ?>;
     // =========================================================================================================
     // Modal New Project (Start)
@@ -82,15 +83,12 @@
     // get data on form project
     const getDataFormProject = () => {
         let title = $(parentProjectModal + ' ' + modalProjectTitle).val();
-        let description = '';
-        let deadline = '';
-        let visibility = 1;
 
         let array = {
             title: title,
-            description: description,
-            deadline: deadline,
-            visibility: visibility,
+            description: '',
+            deadline: '',
+            visibility: 'private',
             total_task: 0,
         };
 
@@ -102,7 +100,21 @@
 
     // Upload data
     const uploadDataProject = () => {
-        pushProjectData(getDataFormProject());
+        let dataBatch = getDataFormProject();
+
+        uploadDataServer({
+            url: url + '/project/create',
+            data: {
+                workspace_id: workspace_id,
+                title: dataBatch.title,
+                description: dataBatch.description,
+                deadline: dataBatch.deadline,
+                visibility: dataBatch.visibility,
+            },
+            onSuccess: function(data) {
+                pushProjectData(data);
+            }
+        });
     }
 
     const pushProjectData = (object) => {
@@ -116,7 +128,7 @@
         let view = '';
         $.each(array, function(i, row) {
             view += '<div class="col-md-4 col-lg-3 p-2">' +
-                '<div class="card card-sm rounded-10 shadow-none border-0 hover-shadow-primary h-100" onclick="window.open(\'' + url + '/workspace/task' + '\', \'' + '_parent' + '\')">' +
+                '<div class="card card-sm rounded-10 shadow-none border-0 hover-shadow-primary h-100" onclick="window.open(\'' + row.url_open + '\', \'' + '_parent' + '\')">' +
                 '<div class="card-body px-3 py-3 text-center">' +
                 '<span class="h3">' + row.title + '</span>' +
                 '<div class="my-3">' +

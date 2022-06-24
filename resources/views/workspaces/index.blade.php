@@ -5,7 +5,7 @@
 <x-empty-page.empty-page :image="asset('assets/dist/img/illustration/undraw_quitting_time_dm8t.svg')" title="Ruang Kerja" subtitle="Mulai bekerja dengan cepat." :icon="App\Models\GlobalModel::my_icon()->layer" buttonText="Buat Ruangan Kerja" />
 @endif
 <!-- Page Workspace -->
-@if(count($workspaces) > 1)
+@if(count($workspaces) > 0)
 <div class="row">
     <div class="d-none d-lg-block col-lg-3">
         <x-sub-page.workspace :result="$workspaces" />
@@ -19,10 +19,10 @@
             </div>
             <div class="card-body">
                 <h2 class="h2">
-                    <span class="status status-blue bg-blue-lt me-3">
+                    <span class="status status-{{ $workspace->color }} bg-{{ $workspace->color }}-lt me-3">
                         <span class="status-dot status-dot-animated"></span>
                     </span>
-                    {{ $workspaces[0]->title }}
+                    {{ $workspace->title }}
                 </h2>
                 <div class="btn-list mt-4">
                     <a href="#" class="btn rounded-10">
@@ -42,7 +42,7 @@
             </div>
         </div>
         <!-- List Task Utama-->
-        <x-sub-page.project :result="$project" />
+        <x-sub-page.project :result="$project" :workspaceId="$workspace->id" />
         <!-- Task -->
         <x-sub-page.task :result="$project" />
         <!-- Member -->

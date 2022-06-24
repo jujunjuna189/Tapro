@@ -196,7 +196,7 @@
                             <a href="#" class="dropdown-item">Feedback</a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Logout</a>
+                            <a href="#" class="dropdown-item" onclick="logout_app()">Logout</a>
                         </div>
                     </div>
                 </div>
@@ -280,6 +280,7 @@
             </footer>
         </div>
     </div>
+    <x-modal.logout />
     @yield('modal')
     <!-- Libs JS -->
     <script src="{{ asset('assets/dist/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
@@ -305,6 +306,7 @@
     <script src="{{ asset('assets/pus_dist/js/script.js') }}"></script>
 
     <script>
+        let user_id = "<?= Illuminate\Support\Facades\Auth::user()->id ?>";
         let url = "<?= url('') ?>";
         let token = "<?= Illuminate\Support\Facades\Session::token() ?>";
     </script>

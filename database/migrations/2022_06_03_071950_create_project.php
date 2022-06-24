@@ -17,8 +17,8 @@ class CreateProject extends Migration
             $table->id();
             $table->bigInteger('workspace_id');
             $table->string('title');
-            $table->string('description');
-            $table->date('deadline');
+            $table->string('description')->nullable(true);
+            $table->date('deadline')->nullable(true);
             $table->string('visibility');
             $table->timestamps();
         });

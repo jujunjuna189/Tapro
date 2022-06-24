@@ -170,9 +170,7 @@ const uploadDataServer = ({ url = '', type = 'post', data = [], onSuccess }) => 
         url: url,
         type: type,
         dataType: 'json',
-        data: {
-            data: data,
-        },
+        data: data,
         headers: {
             'X-CSRF-TOKEN': token,
         },
@@ -180,10 +178,39 @@ const uploadDataServer = ({ url = '', type = 'post', data = [], onSuccess }) => 
             swal_loader('Sedang unggah data...');
         },
         success: function (data) {
+            close_swal(true, 'Berhasil unggah data', 'success');
             onSuccess(data);
         },
         error: function (error) {
             close_swal(true, 'Terjadi kesalahan saat unggah data', 'error');
+            console.log(error);
+        }
+    });
+}
+
+const logout_app = () => {
+    let parent_modal = '#modal-logout';
+    $(parent_modal).modal('show');
+
+    $(parent_modal + ' #btn-logout-execute').attr('onclick', 'execute_logout()');
+}
+
+const execute_logout = () => {
+    $.ajax({
+        url: url + '/logout',
+        type: 'post',
+        dataType: 'json',
+        headers: {
+            'X-CSRF-TOKEN': token,
+        },
+        beforeSend: function () {
+            swal_loader('Logout app...');
+        },
+        success: function (data) {
+            location.reload();
+        },
+        error: function (error) {
+            close_swal(true, 'Failed logout app..', 'error');
         }
     });
 }

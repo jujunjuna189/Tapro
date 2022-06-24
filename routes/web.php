@@ -27,4 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/workspaces', [App\Http\Controllers\Workspaces\WorkspacesController::class, 'index'])->name('workspaces');
     // Workspace
     Route::get('/workspace/task', [App\Http\Controllers\Workspace\WorkspaceController::class, 'task'])->name('workspace.task');
+    Route::post('/workspace/create', [App\Http\Controllers\Workspace\WorkspaceController::class, 'create'])->name('workspace.create');
+    // Project
+    Route::post('/project/create', [App\Http\Controllers\Project\ProjectController::class, 'create'])->name('project.create');
 });

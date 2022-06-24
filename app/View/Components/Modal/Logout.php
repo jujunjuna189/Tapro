@@ -1,24 +1,19 @@
 <?php
 
-namespace App\View\Components\SubPage;
+namespace App\View\Components\Modal;
 
 use Illuminate\View\Component;
 
-class Project extends Component
+class Logout extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-
-    public $workspaceId;
-    public $result;
-
-    public function __construct($workspaceId, $result)
+    public function __construct()
     {
-        $this->workspaceId = $workspaceId;
-        $this->result = $result;
+        //
     }
 
     /**
@@ -28,6 +23,6 @@ class Project extends Component
      */
     public function render()
     {
-        return view('components.sub-page.project');
+        return view('components.modal.logout');
     }
 }

@@ -16,7 +16,7 @@ class CreateWorkspace extends Migration
         Schema::create('workspace', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->string('description')->nullable(true);
             $table->enum('visibility', ['private', 'public']);
             $table->timestamps();
         });

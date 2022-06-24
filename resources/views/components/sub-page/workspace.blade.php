@@ -8,7 +8,7 @@
                 {{ $val->visibility }}
             </h6>
             <h4 class="m-0 fw-bolder">{{ $val->title }}</h4>
-            <a href="#" class="bg-{{ $val->color }} p-2 rounded-10 shadow button-fly">
+            <a href="{{ $val->url_open }}" class="bg-{{ $val->color }} p-2 rounded-10 shadow button-fly">
                 {!! App\Models\GlobalModel::my_icon()->eye !!}
             </a>
         </div>
@@ -62,8 +62,9 @@
 
         let array = {
             title: title,
+            description: '',
             color: 'orange',
-            visibility: visibility,
+            visibility: 'private',
         };
 
         // Clear form
@@ -74,17 +75,24 @@
 
     // Upload data
     const uploadDataWorkspace = () => {
-        pushWorkspaceData(getDataFormWorkspace());
+        let dataBatch = getDataFormWorkspace();
+
         uploadDataServer({
-            url: url,
+            url: url + '/workspace/create',
+            data: {
+                user_id: user_id,
+                title: dataBatch.title,
+                description: dataBatch.description,
+                visibility: dataBatch.visibility,
+            },
             onSuccess: function(data) {
-                console.log(data);
+                pushWorkspaceData(data);
             }
         });
     }
 
     const pushWorkspaceData = (object) => {
-        data_workspace.push(object);
+        data_workspace.unshift(object);
         drawWorkspace(data_workspace);
     }
 
@@ -100,7 +108,7 @@
                 row.visibility +
                 '</h6>' +
                 '<h4 class="m-0 fw-bolder">' + row.title + '</h4>' +
-                '<a href="#" class="bg-' + row.color + ' p-2 rounded-10 shadow button-fly">' +
+                '<a href="' + row.url_open + '" class="bg-' + row.color + ' p-2 rounded-10 shadow button-fly">' +
                 '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">' +
                 '<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>' +
                 '<circle cx="12" cy="12" r="2"></circle>' +
