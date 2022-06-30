@@ -33,6 +33,9 @@
                                 <div class="dropdown-menu dropdown-menu-card dropdown-menu-end dropdown-menu-arrow" style="width: 20rem; max-width: 20rem;">
                                     <div class="px-3 py-3">
                                         <h2 class="mb-3">Share</h2>
+                                        @if(count($member) == 0)
+                                        <span class="text-muted">Tidak ada member</span>
+                                        @endif
                                         @foreach($member as $res)
                                         <div class="d-flex align-items-center mt-auto mb-2">
                                             <span class="avatar avatar-sm avatar-rounded" data-bs-toggle="tooltip">{{ substr($res->name, 0, 2) }}</span>
