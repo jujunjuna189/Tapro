@@ -134,6 +134,7 @@ class WorkspaceController extends Controller
             $dataRequest = $request;
             $id = $dataRequest->id;
 
+            (new ProjectController)->delete(new Request(['workspace_id' => $dataRequest->id]));
             $delete = WorkspaceModel::where('id', $id)->delete();
 
             if ($delete) {

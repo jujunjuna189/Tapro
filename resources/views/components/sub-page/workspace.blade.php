@@ -1,7 +1,7 @@
 <h4 class="strong fw-bold mb-4">Ruang Kerja</h4>
 <div id="list-workspace">
     @foreach($result as $val)
-    <div class="card rounded-20 mt-4 border-0 bg-{{ $val->color }}-lt shadow-none">
+    <div class="card rounded-20 mt-4 bg-{{ $val->color }}-lt shadow-none">
         <div class="card-body">
             <h6 class="mb-1 fw-normal status-{{ $val->color }}">
                 <span class="status-dot status-dot-animated me-2"></span>
@@ -15,7 +15,7 @@
     </div>
     @endforeach
 </div>
-<div class="card rounded-20 mt-4 border-0 bg-white shadow-none cursor-pointer" onclick="open_modal('#modal-workspace', '#modal-workspace textarea[name=title]')">
+<div class="card rounded-20 mt-4 bg-white shadow-none cursor-pointer" onclick="open_modal('#modal-workspace', '#modal-workspace textarea[name=title]')">
     <div class="card-body">
         <div class="d-flex align-items-center justify-content-between">
             <h4 class="m-0 fw-bolder">Buat Ruang Kerja</h4>
@@ -101,7 +101,7 @@
         $(workspaceViewList).empty();
         let view = '';
         $.each(array, function(i, row) {
-            view += '<div class="card rounded-20 mt-4 border-0 bg-' + row.color + '-lt shadow-none">' +
+            view += '<div class="card rounded-20 mt-4 bg-' + row.color + '-lt shadow-none">' +
                 '<div class="card-body">' +
                 '<h6 class="mb-1 fw-normal status-' + row.color + '">' +
                 '<span class="status-dot status-dot-animated me-2"></span>' +

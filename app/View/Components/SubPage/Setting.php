@@ -11,9 +11,12 @@ class Setting extends Component
      *
      * @return void
      */
-    public function __construct()
+
+    public $workspaceId;
+
+    public function __construct($workspaceId)
     {
-        //
+        $this->workspaceId = $workspaceId;
     }
 
     /**

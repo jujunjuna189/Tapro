@@ -28,6 +28,11 @@ Route::group(['middleware' => 'auth'], function () {
     // Workspace
     Route::get('/workspace/task', [App\Http\Controllers\Workspace\WorkspaceController::class, 'task'])->name('workspace.task');
     Route::post('/workspace/create', [App\Http\Controllers\Workspace\WorkspaceController::class, 'create'])->name('workspace.create');
+    Route::post('/workspace/delete', [App\Http\Controllers\Workspace\WorkspaceController::class, 'delete'])->name('workspace.delete');
     // Project
     Route::post('/project/create', [App\Http\Controllers\Project\ProjectController::class, 'create'])->name('project.create');
+    //Task
+    Route::post('/task/create', [App\Http\Controllers\Task\TaskController::class, 'create'])->name('task.create');
+    //Member
+    Route::post('/member/create', [App\Http\Controllers\Member\MemberController::class, 'create'])->name('member.create');
 });

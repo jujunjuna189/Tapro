@@ -112,7 +112,43 @@ class TaskController extends Controller
         }
     }
 
-    public function delete()
+    public function delete(Request $request)
     {
+        try {
+            $dataRequest = $request;
+
+            if (isset($dataRequest->id)) {
+                $data['id'] = $dataRequest->id;
+            }
+
+            if (isset($dataRequest->project_id)) {
+                $data['project_id'] = $dataRequest->project_id;
+            }
+
+            $delete = TaskModel::where($data)->delete();
+
+            if ($delete) {
+                return response()->json([
+                    'status' => 'Success',
+                    'data' => [
+                        'Success Delete Data'
+                    ],
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => 'Failed',
+                    'data' => [
+                        'Failed Delete Data'
+                    ],
+                ], 300);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'Failed',
+                'data' => [
+                    $e
+                ],
+            ], 500);
+        }
     }
 }

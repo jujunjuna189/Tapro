@@ -41,6 +41,11 @@
     border-radius: 20px;
 }
 
+.rounded-20-top {
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
 .rounded-20-left {
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;

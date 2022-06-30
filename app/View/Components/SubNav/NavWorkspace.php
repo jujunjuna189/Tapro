@@ -11,9 +11,12 @@ class NavWorkspace extends Component
      *
      * @return void
      */
-    public function __construct()
+
+    public $totalMember;
+
+    public function __construct($totalMember)
     {
-        //
+        $this->totalMember = $totalMember;
     }
 
     /**

@@ -18,15 +18,15 @@
 </header>
 @endsection
 @section('content')
-<div class="row align-items-center justify-content-center">
-    <div class="col-md-12">
+<div class="row align-items-center">
+    <div class="col-md-2">
         <div class="box">
             <div id="jusgage" class="gauge"></div>
         </div>
     </div>
-    <div class="col-md-6 text-center pt-3">
-        <span class="fw-bold h1">{{ $project->title }}</span>
-        <div class="d-flex mt-3 justify-content-center">
+    <div class="col-md-6 pt-3">
+        <div class="fw-bold h1 text-center text-md-start">{{ $project->title }}</div>
+        <div class="d-flex mt-3 justify-content-center justify-content-md-start">
             <div class="me-3">
                 <div class="d-md-flex me-3">
                     <div class="avatar-list avatar-list-stacked">
@@ -44,7 +44,7 @@
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M3 12h4l3 8l4 -16l3 8h4" />
                     </svg>
-                    1/{{ $project->total_task }}
+                    <span id="task_complete">{{ $project->total_task_completed }}</span>/<span id="total_task">{{ $project->total_task }}</span>
                 </a>
             </div>
             <div class="me-3">
@@ -94,7 +94,7 @@
         </div>
     </div>
     <div class="col-md-12" id="list-task">
-        @foreach($project->task as $val)
+        @foreach($task as $val)
         <x-list-entry.task-list :id="$val->id" :title="$val->title" :completed="$val->completed" :deleted="$val->deleted" />
         @endforeach
     </div>
@@ -105,14 +105,15 @@
 <!-- Modal for new task -->
 <x-modal.new-task />
 <!-- Modal for share -->
-<x-modal.invite-member />
+<x-modal.share-task :result="$task" :member="$member" />
 @endsection
 
 @section('script')
 <script>
     // Setting data and modal
     // Data
-    let data_task = <?= json_encode($project->task) ?>;
+    let project_id = <?= json_encode($project->id) ?>;
+    let data_task = <?= json_encode($task) ?>;
     // =========================================================================================================
     // Modal New task (Start)
     // =========================================================================================================
@@ -145,17 +146,12 @@
 
     // get data on form task
     const getDataFormTask = () => {
-        let last_id = data_task[(data_task.length - 1)].id + 1;
         let title = $(parentTaskModal + ' ' + modalTaskTitle).val();
-        let completed = false;
-        let deleted = false;
 
         let array = {
-            id: last_id,
             title: title,
-            share: [],
-            completed: completed,
-            deleted: deleted,
+            completed: 0,
+            deleted: 0,
         };
 
         // Clear form
@@ -166,7 +162,20 @@
 
     // Upload data
     const uploadDataTask = () => {
-        pushTaskData(getDataFormTask());
+        let dataBatch = getDataFormTask();
+
+        uploadDataServer({
+            url: url + '/task/create',
+            data: {
+                project_id: project_id,
+                title: dataBatch.title,
+                completed: dataBatch.completed,
+                deleted: dataBatch.deleted,
+            },
+            onSuccess: function(data) {
+                pushTaskData(data);
+            }
+        });
     }
 
     const pushTaskData = (object) => {
@@ -238,9 +247,13 @@
         });
 
         let total_task = array_task.length;
-        let percentage = (taskCompleted / total_task) * 100;
+        let percentage = total_task != 0 ? (taskCompleted / total_task) * 100 : 0;
 
         jusgageChart.refresh(percentage);
+    }
+    // void count task
+    const countTask = (array_task) => {
+
     }
     // If checked task completed
     const onTaskCompleted = (event, id) => {

@@ -194,4 +194,16 @@ class GlobalModel extends Model
 
         return $value;
     }
+
+    protected function search_array($array, $key, $needed)
+    {
+        $result = [];
+        foreach ($array as $val) {
+            if ($val[$key] == $needed) {
+                $result[] = $val;
+            }
+        }
+
+        return $result;
+    }
 }

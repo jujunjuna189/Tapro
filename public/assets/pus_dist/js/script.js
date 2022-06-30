@@ -188,6 +188,31 @@ const uploadDataServer = ({ url = '', type = 'post', data = [], onSuccess }) => 
     });
 }
 
+const deleteDataServer = ({ url = '', type = 'post', data = [], onSuccess }) => {
+    $.ajax({
+        url: url,
+        type: type,
+        dataType: 'json',
+        data: data,
+        headers: {
+            'X-CSRF-TOKEN': token,
+        },
+        beforeSend: function () {
+            swal_loader('Sedang hapus data...');
+        },
+        success: function (data) {
+            close_swal(true, 'Berhasil hapus data', 'success');
+            setTimeout(function () {
+                onSuccess(data);
+            }, 2500);
+        },
+        error: function (error) {
+            close_swal(true, 'Terjadi kesalahan saat hapus data', 'error');
+            console.log(error);
+        }
+    });
+}
+
 const logout_app = () => {
     let parent_modal = '#modal-logout';
     $(parent_modal).modal('show');

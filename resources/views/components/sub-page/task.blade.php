@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="col-md-4 col-lg-3 p-2">
-        <div class="card card-sm rounded-10 shadow-none border-0 hover-shadow-primary h-100" data-bs-toggle="modal" data-bs-target="#modal-project">
+        <div class="card card-sm rounded-10 shadow-none hover-shadow-primary h-100" data-bs-toggle="modal" data-bs-target="#modal-project">
             <div class="card-body px-2 py-2 text-center d-flex align-items-center justify-content-center">
                 <div>
                     <span class="h3">Buat Baru</span>
@@ -20,7 +20,7 @@
     </div>
     @foreach($result as $val)
     <div class="col-md-4 col-lg-3 p-2">
-        <div class="card card-sm rounded-10 shadow-none border-0 hover-shadow-primary h-100" onclick="window.open('<?= route('workspace.task') ?>', '_parent')">
+        <div class="card card-sm rounded-10 shadow-none hover-shadow-primary h-100" onclick="window.open('<?= route('workspace.task') ?>', '_parent')">
             <div class="card-body px-3 py-3 text-center">
                 <span class="h3">{{ App\Models\GlobalModel::overlayText($val->title) }}</span>
                 <div class="my-3">

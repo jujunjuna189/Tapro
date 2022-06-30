@@ -9,7 +9,7 @@
     <div class="row row-cards mt-1" id="list-project">
         @foreach($result as $val)
         <div class="col-md-4 col-lg-3 p-2">
-            <div class="card card-sm rounded-10 shadow-none border-0 hover-shadow-primary h-100" onclick="window.open('<?= $val->url_open ?>', '_parent')">
+            <div class="card card-sm rounded-10 shadow-none hover-shadow-primary h-100" onclick="window.open('<?= $val->url_open ?>', '_parent')">
                 <div class="card-body px-3 py-3 text-center">
                     <span class="h3">{{ $val->title }}</span>
                     <div class="my-3">
@@ -25,7 +25,7 @@
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M3 12h4l3 8l4 -16l3 8h4" />
                             </svg>
-                            {{ $val->total_task }}
+                            {{ $val->total_task_completed . '/' . $val->total_task }}
                         </span>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
         </div>
         @endforeach
         <div class="col-md-4 col-lg-3 p-2">
-            <div class="card card-sm rounded-10 shadow-none border-0 hover-shadow-primary h-100" onclick="open_modal('#modal-project', '#modal-project textarea[name=title]')">
+            <div class="card card-sm rounded-10 shadow-none hover-shadow-primary h-100" onclick="open_modal('#modal-project', '#modal-project textarea[name=title]')">
                 <div class="card-body px-2 pt-3 pb-4 text-center d-flex align-items-center justify-content-center">
                     <div>
                         <span class="h3">Buat Baru</span>
@@ -68,7 +68,6 @@
     // Modal on submit
     $(document).ready(function() {
         onSubmitProject();
-        notif("Hello", 'info');
     });
 
     // Void on submit
@@ -128,7 +127,7 @@
         let view = '';
         $.each(array, function(i, row) {
             view += '<div class="col-md-4 col-lg-3 p-2">' +
-                '<div class="card card-sm rounded-10 shadow-none border-0 hover-shadow-primary h-100" onclick="window.open(\'' + row.url_open + '\', \'' + '_parent' + '\')">' +
+                '<div class="card card-sm rounded-10 shadow-none hover-shadow-primary h-100" onclick="window.open(\'' + row.url_open + '\', \'' + '_parent' + '\')">' +
                 '<div class="card-body px-3 py-3 text-center">' +
                 '<span class="h3">' + row.title + '</span>' +
                 '<div class="my-3">' +

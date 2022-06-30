@@ -11,7 +11,7 @@
         <x-sub-page.workspace :result="$workspaces" />
     </div>
     <div class="col-lg-9 ps-lg-4">
-        <div class="card shadow-none border-0 rounded-20 mt-3">
+        <div class="card shadow-none rounded-20 mt-3">
             <div class="card-stamp" style="border-top-right-radius: 20px !important;">
                 <div class="card-stamp-icon bg-yellow">
                     {!! App\Models\GlobalModel::my_icon()->layer_grid !!}
@@ -38,7 +38,7 @@
         </div>
         <div class="row mt-4">
             <div class="col-md-12">
-                <x-sub-nav.nav-workspace />
+                <x-sub-nav.nav-workspace :totalMember="count($member)" />
             </div>
         </div>
         <!-- List Task Utama-->
@@ -46,7 +46,9 @@
         <!-- Task -->
         <x-sub-page.task :result="$project" />
         <!-- Member -->
-        <x-sub-page.member :result="$project" />
+        <x-sub-page.member :result="$member" :workspaceId="$workspace->id" />
+        <!-- Setting -->
+        <x-sub-page.setting :workspaceId="$workspace->id" />
     </div>
 </div>
 @endif
@@ -59,4 +61,6 @@
 <x-modal.new-project />
 <!-- Modal for share -->
 <x-modal.share />
+<!-- Modal Confirm -->
+<x-modal.confirm />
 @endsection

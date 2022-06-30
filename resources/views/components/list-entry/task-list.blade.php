@@ -1,4 +1,4 @@
-<div class="card card-sm rounded-20-left shadow-none border-0 hover-shadow-primary mb-2">
+<div class="card card-sm rounded-20-left shadow-none hover-shadow-primary mb-2">
     <div class="card-body px-3 py-3 d-flex align-items-center justify-content-start">
         <div class="me-3">
             @if($completed)

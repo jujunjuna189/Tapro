@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\SubPage;
+namespace App\View\Components\Modal;
 
 use Illuminate\View\Component;
 
-class Member extends Component
+class ShareTask extends Component
 {
     /**
      * Create a new component instance.
@@ -12,13 +12,13 @@ class Member extends Component
      * @return void
      */
 
-    public $workspaceId;
     public $result;
+    public $member;
 
-    public function __construct($workspaceId, $result)
+    public function __construct($result, $member)
     {
-        $this->workspaceId = $workspaceId;
         $this->result = $result;
+        $this->member = $member;
     }
 
     /**
@@ -28,6 +28,6 @@ class Member extends Component
      */
     public function render()
     {
-        return view('components.sub-page.member');
+        return view('components.modal.share-task');
     }
 }

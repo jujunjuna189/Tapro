@@ -123,9 +123,20 @@ class ProjectController extends Controller
     {
         try {
             $dataRequest = $request;
-            $id = $dataRequest->id;
 
-            $delete = ProjectModel::where('id', $id)->delete();
+            if (isset($dataRequest->id)) {
+                $data['id'] = $dataRequest->id;
+            }
+
+            if (isset($dataRequest->workspace_id)) {
+                $data['workspace_id'] = $dataRequest->workspace_id;
+            }
+
+            $project = ProjectModel::where($data)->get();
+            foreach ($project as $val) {
+                (new TaskController)->delete(new Request(['project_id' => $val->id]));
+            }
+            $delete = ProjectModel::where($data)->delete();
 
             if ($delete) {
                 return response()->json([

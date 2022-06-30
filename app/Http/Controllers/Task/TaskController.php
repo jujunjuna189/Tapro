@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
+    public function create(Request $request)
+    {
+        $task = (new ApiControllerTaskController)->create($request);
+        $task = $task->original['data'];
+        return response()->json($task);
+    }
+
     public function getTask($project_id)
     {
         $requestProject = new Request(['project_id' => $project_id]);

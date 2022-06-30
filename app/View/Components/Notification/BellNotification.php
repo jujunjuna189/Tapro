@@ -1,24 +1,19 @@
 <?php
 
-namespace App\View\Components\SubPage;
+namespace App\View\Components\Notification;
 
 use Illuminate\View\Component;
 
-class Member extends Component
+class BellNotification extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-
-    public $workspaceId;
-    public $result;
-
-    public function __construct($workspaceId, $result)
+    public function __construct()
     {
-        $this->workspaceId = $workspaceId;
-        $this->result = $result;
+        //
     }
 
     /**
@@ -28,6 +23,6 @@ class Member extends Component
      */
     public function render()
     {
-        return view('components.sub-page.member');
+        return view('components.notification.bell-notification');
     }
 }
