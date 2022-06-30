@@ -13,6 +13,7 @@ class ProjectController extends Controller
     {
         $project = (new ApiControllerProjectController)->create($request);
         $project = $project->original['data'];
+        $project['total_task_completed'] = 0;
         $project['total_task'] = 0;
         $project['url_open'] = route('workspace.task', ['project_id' => $project->id]);
 
