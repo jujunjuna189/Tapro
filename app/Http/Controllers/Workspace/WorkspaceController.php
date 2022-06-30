@@ -55,9 +55,6 @@ class WorkspaceController extends Controller
         $workspaces = (new ApiControllerWorkspaceController)->data($requestWorkspace);
         $workspaces = $workspaces->original['data'];
 
-        echo json_encode(count($workspaces == {}));
-        die;
-
         $result = [];
         foreach ($workspaces as $val) {
             $result[] = (object) [
