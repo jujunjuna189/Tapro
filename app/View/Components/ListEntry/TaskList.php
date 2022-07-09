@@ -16,13 +16,15 @@ class TaskList extends Component
     public $title;
     public $completed;
     public $deleted;
+    public $share;
 
-    public function __construct($id, $title, $completed = false, $deleted = false)
+    public function __construct($id, $title, $completed = false, $deleted = false, $share = [])
     {
         $this->id = $id;
         $this->title = $title;
         $this->completed = $completed;
         $this->deleted = $deleted;
+        $this->share = $share;
     }
 
     /**

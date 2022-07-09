@@ -14,13 +14,20 @@ class WorkspaceController extends Controller
 {
     public function task(Request $request)
     {
+        $project = [];
+        $member = [];
+        $task = [];
 
-        $project = (new ProjectController)->getProject(['project_id' => $request->project_id]);
-        $member = (new MemberController)->getMember(['workspace_id' => $project[0]->workspace_id]);
-        $member = array_filter($member, function ($val) {
-            return $val->user_id != Auth::user()->id;
-        });
-        $task = (new TaskController)->getTask($request->project_id);
+        try {
+            $project = (new ProjectController)->getProject(['project_id' => $request->project_id]);
+            $member = (new MemberController)->getMember(['workspace_id' => $project[0]->workspace_id]);
+            $member = array_filter($member, function ($val) {
+                return $val->user_id != Auth::user()->id;
+            });
+            $task = (new TaskController)->getTask($request->project_id);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
 
         $data['member'] = $member;
         $data['project'] = $project[0];

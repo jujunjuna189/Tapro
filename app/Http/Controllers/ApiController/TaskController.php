@@ -17,7 +17,34 @@ class TaskController extends Controller
             $project = (new ProjectController)->data($dataRequest); //just project id
             $project = $project->original['data'][0];
 
-            $result = $project->task;
+            $task = $project->task;
+
+            $result = [];
+            foreach ($task as $val) {
+                $share = [];
+                foreach ($val->share as $value) {
+                    $share[] = (object) [
+                        'id' => $value->id,
+                        'user_id' => $value->user->id,
+                        'name' => $value->user->name,
+                        'task_id' => $value->task->id,
+                        'access' => $value->access,
+                        'created_at' => $value->created_at,
+                        'updated_at' => $value->updated_at
+                    ];
+                }
+
+                $result[] = (object)[
+                    'id' => $val->id,
+                    'project_id' => $val->project_id,
+                    'title' => $val->title,
+                    'completed' => $val->completed,
+                    'deleted' => $val->deleted,
+                    'created_at' => $val->created_at,
+                    'updated_at' => $val->updated_at,
+                    'share' => $share
+                ];
+            }
 
             if ($result) {
                 return response()->json([
@@ -53,6 +80,7 @@ class TaskController extends Controller
             $data['deleted'] = false;
 
             $create = TaskModel::create($data);
+            $create['share'] = [];
 
             if ($create) {
                 return response()->json([
@@ -83,9 +111,15 @@ class TaskController extends Controller
             $dataRequest = $request;
             $id = $dataRequest->id;
 
-            $data['title'] = $dataRequest->title;
-            $data['completed'] = $dataRequest->completed;
-            $data['deleted'] = $dataRequest->deleted;
+            if (isset($dataRequest->title)) {
+                $data['title'] = $dataRequest->title;
+            }
+            if (isset($dataRequest->completed)) {
+                $data['completed'] = $dataRequest->completed;
+            }
+            if (isset($dataRequest->deleted)) {
+                $data['deleted'] = $dataRequest->deleted;
+            }
 
             $update = TaskModel::where('id', $id)->update($data);
 

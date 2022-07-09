@@ -14,9 +14,9 @@
                     <span class="h3">{{ $val->title }}</span>
                     <div class="my-3">
                         <div class="avatar-list avatar-list-stacked">
-                            <span class="avatar avatar-xs avatar-rounded" data-bs-toggle="tooltip" style="background-image: url(<?= asset('assets/dist/img/user.svg') ?>)"></span>
-                            <span class="avatar avatar-xs avatar-rounded" data-bs-toggle="tooltip" style="background-image: url(<?= asset('assets/dist/img/user.svg') ?>)"></span>
-                            <span class="avatar avatar-xs avatar-rounded" data-bs-toggle="tooltip" style="background-image: url(<?= asset('assets/dist/img/user.svg') ?>)"></span>
+                            @foreach($val->share as $share)
+                            <span class="avatar avatar-xs avatar-rounded" data-bs-toggle="tooltip">{{ substr($share['name'], 0, 2) }}</span>
+                            @endforeach
                         </div>
                     </div>
                     <div class="button-box-fly-center">
@@ -132,9 +132,7 @@
                 '<span class="h3">' + row.title + '</span>' +
                 '<div class="my-3">' +
                 '<div class="avatar-list avatar-list-stacked">' +
-                '<span class="avatar avatar-xs avatar-rounded" data-bs-toggle="tooltip" style="background-image: url(<?= asset('assets/dist/img/user.svg') ?>)"></span>' +
-                '<span class="avatar avatar-xs avatar-rounded" data-bs-toggle="tooltip" style="background-image: url(<?= asset('assets/dist/img/user.svg') ?>)"></span>' +
-                '<span class="avatar avatar-xs avatar-rounded" data-bs-toggle="tooltip" style="background-image: url(<?= asset('assets/dist/img/user.svg') ?>)"></span>' +
+                drawProjectShare(row.share) +
                 '</div>' +
                 '</div>' +
                 '<div class="button-box-fly-center">' +
@@ -152,6 +150,15 @@
         });
 
         $(projectViewList).prepend(view);
+    }
+
+    const drawProjectShare = (array) => {
+        let view = '';
+        $.each(array, function(i, row) {
+            view += '<span class="avatar avatar-xs avatar-rounded" data-bs-toggle="tooltip">' + row.name.substring(0, 2) + '</span>';
+        });
+
+        return view;
     }
     // =========================================================================================================
     // Modal New Project (End)

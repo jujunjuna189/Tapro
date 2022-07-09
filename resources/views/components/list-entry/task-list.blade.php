@@ -16,7 +16,19 @@
                 @endif
             </span>
         </div>
-        <div class="ms-auto">
+        <div class="ms-auto d-flex align-items-center">
+            <div class="mx-3 avatar-list avatar-list-stacked">
+                @foreach($share as $val)
+                <span class="avatar avatar-xs avatar-rounded" data-bs-toggle="tooltip">{{ substr($val->name, 0, 2) }}</span>
+                @endforeach
+                <span class="avatar avatar-xs avatar-rounded" data-bs-toggle="tooltip" onclick="shareTaskToMember(this, '{{ $id }}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </span>
+            </div>
             <div class="dropdown">
                 <span class="text-dark" data-bs-toggle="dropdown">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -34,6 +46,7 @@
                             <path d="M3 12h5l4 8v-16l4 8h5"></path>
                         </svg>
                         Tipe Progress
+                        <span class="text-danger fw-bold ms-2 small">On-Going</span>
                     </a>
                     <a class="dropdown-item" href="#" onclick="onTaskDeleted('{{ $id }}')">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

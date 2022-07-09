@@ -13,12 +13,10 @@ class ShareTask extends Component
      */
 
     public $result;
-    public $member;
 
-    public function __construct($result, $member)
+    public function __construct($result)
     {
         $this->result = $result;
-        $this->member = $member;
     }
 
     /**

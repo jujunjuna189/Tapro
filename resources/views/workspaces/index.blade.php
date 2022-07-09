@@ -44,7 +44,7 @@
         <!-- List Task Utama-->
         <x-sub-page.project :result="$project" :workspaceId="$workspace->id" />
         <!-- Task -->
-        <x-sub-page.task :result="$project" />
+        <x-sub-page.task :result="$task" />
         <!-- Member -->
         <x-sub-page.member :result="$member" :workspaceId="$workspace->id" />
         <!-- Setting -->

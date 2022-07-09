@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Workspaces;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\Project\ProjectController;
+use App\Http\Controllers\Task\TaskController;
 use App\Http\Controllers\Workspace\WorkspaceController;
 use App\Models\GlobalModel;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ class WorkspacesController extends Controller
         $workspaces = [];
         $workspace = [];
         $project = [];
+        $task = [];
         $member = [];
 
         try {
@@ -25,6 +27,7 @@ class WorkspacesController extends Controller
             $workspace = $workspaces[$workspace];
 
             $project = (new ProjectController)->getProject(['workspace_id' => $workspace->id]);
+            $task = (new TaskController)->getTaskByWorkspace(Auth::user()->id, ['workspace_id' => $workspace->id]);
             $member = (new MemberController)->getMember(['workspace_id' => $workspace->id]);
         } catch (\Throwable $th) {
             //throw $th;
@@ -34,6 +37,7 @@ class WorkspacesController extends Controller
         $data['workspaces'] = $workspaces;
         $data['workspace'] = $workspace;
         $data['project'] = $project;
+        $data['task'] = $task;
         $data['member'] = $member;
 
         return view('workspaces.index', $data);

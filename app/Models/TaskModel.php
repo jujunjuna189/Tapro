@@ -10,4 +10,9 @@ class TaskModel extends Model
     use HasFactory;
     protected $table = 'task';
     protected $fillable = ['project_id', 'title', 'completed', 'deleted'];
+
+    public function share()
+    {
+        return $this->hasMany(ShareModel::class, 'task_id', 'id');
+    }
 }

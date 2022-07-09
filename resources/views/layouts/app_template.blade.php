@@ -37,18 +37,18 @@
                     <x-notification.bell-notification />
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-                            <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
+                            <span class="avatar avatar-sm">{{ substr(Auth::user()->name, 0, 2) }}</span>
                             <div class="d-none d-xl-block ps-2">
                                 <div>{{ Auth::user()->name }}</div>
                                 <div class="mt-1 small text-muted">{{ Auth::user()->email }}</div>
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                            <a href="#" class="dropdown-item">Set status</a>
+                            <!-- <a href="#" class="dropdown-item">Set status</a> -->
                             <a href="#" class="dropdown-item">Profile &amp; account</a>
-                            <a href="#" class="dropdown-item">Feedback</a>
+                            <!-- <a href="#" class="dropdown-item">Feedback</a> -->
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">Settings</a>
+                            <!-- <a href="#" class="dropdown-item">Settings</a> -->
                             <a href="#" class="dropdown-item" onclick="logout_app()">Logout</a>
                         </div>
                     </div>
@@ -96,34 +96,16 @@
             </div>
             <footer class="footer footer-transparent d-print-none d-none d-md-block">
                 <div class="container-xl">
-                    <div class="row text-center align-items-center flex-row-reverse">
-                        <div class="col-lg-auto ms-lg-auto">
-                            <ul class="list-inline list-inline-dots mb-0">
-                                <li class="list-inline-item"><a href="./docs/index.html" class="link-secondary">Documentation</a></li>
-                                <li class="list-inline-item"><a href="./license.html" class="link-secondary">License</a></li>
-                                <li class="list-inline-item"><a href="https://github.com/tabler/tabler" target="_blank" class="link-secondary" rel="noopener">Source code</a></li>
-                                <li class="list-inline-item">
-                                    <a href="https://github.com/sponsors/codecalm" target="_blank" class="link-secondary" rel="noopener">
-                                        <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon text-pink icon-filled icon-inline" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                                        </svg>
-                                        Sponsor
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                    <div class="row text-center align-items-center">
                         <div class="col-12 col-lg-auto mt-3 mt-lg-0">
                             <ul class="list-inline list-inline-dots mb-0">
                                 <li class="list-inline-item">
-                                    Copyright &copy; 2022
-                                    <a href="." class="link-secondary">Taspro</a>.
-                                    All rights reserved.
+                                    Copyright &copy; Taspro
+                                    Created By @Ujun Junaedi
                                 </li>
                                 <li class="list-inline-item">
                                     <a href="./changelog.html" class="link-secondary" rel="noopener">
-                                        v1.0.0-beta9
+                                        v0.0.1-1.0.0
                                     </a>
                                 </li>
                             </ul>

@@ -111,6 +111,33 @@ const close_swal = (notif_status = true, message = 'Success', icon = 'success') 
     }, 1000)
 }
 
+// Function for array
+// ==================================
+const arrayRemoveDuplicates = (array, key) => {
+    var newArray = [];
+    var lookupObject = {};
+
+    for (var i in array) {
+        lookupObject[array[i][key]] = array[i];
+    }
+
+    for (i in lookupObject) {
+        newArray.push(lookupObject[i]);
+    }
+    return newArray;
+}
+
+const arrayGroupByKey = (array, key) => {
+    return array
+        .reduce((hash, obj) => {
+            if (obj[key] === undefined) return hash;
+            return Object.assign(hash, {
+                [obj[key]]: (hash[obj[key]] || []).concat(obj)
+            })
+        }, {})
+}
+// ==================================
+
 const notif = (message = '', icon = false) => {
     $(function () {
         'use strict';
