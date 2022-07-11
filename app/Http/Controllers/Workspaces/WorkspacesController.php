@@ -29,6 +29,11 @@ class WorkspacesController extends Controller
             $project = (new ProjectController)->getProject(['workspace_id' => $workspace->id]);
             $task = (new TaskController)->getTaskByWorkspace(Auth::user()->id, ['workspace_id' => $workspace->id]);
             $member = (new MemberController)->getMember(['workspace_id' => $workspace->id]);
+
+            // Set access
+            $access = array_search(Auth::user()->id, array_column($member, 'user_id'));
+            $access = GlobalModel::access_workspace($member[$access]->access);
+            GlobalModel::setSession('access', $access);
         } catch (\Throwable $th) {
             //throw $th;
         }

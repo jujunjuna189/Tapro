@@ -99,7 +99,43 @@ class MemberController extends Controller
     {
     }
 
-    public function delete()
+    public function delete(Request $request)
     {
+        try {
+            $dataRequest = $request;
+
+            if (isset($dataRequest->user_id)) {
+                $data['user_id'] = $dataRequest->user_id;
+            }
+
+            if (isset($dataRequest->workspace_id)) {
+                $data['workspace_id'] = $dataRequest->workspace_id;
+            }
+
+            $delete = MemberModel::where($data)->delete();
+
+            if ($delete) {
+                return response()->json([
+                    'status' => 'Success',
+                    'data' => [
+                        'Success Delete Data'
+                    ],
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => 'Failed',
+                    'data' => [
+                        'Failed Delete Data'
+                    ],
+                ], 300);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'Failed',
+                'data' => [
+                    $e
+                ],
+            ], 500);
+        }
     }
 }

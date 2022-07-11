@@ -8,8 +8,8 @@
                     <div class="input-group">
                         <input type="text" name="email" id="email" autofocus class="form-control border-end-0 shadow-none" placeholder="contoh@gmail.com">
                         <select name="access" class="small form-block border-start-0 shadow-none">
-                            <option value="1">Can View</option>
-                            <option value="2">Editor</option>
+                            <option value="1">Can only do</option>
+                            <option value="0">Editor</option>
                         </select>
                     </div>
                 </div>

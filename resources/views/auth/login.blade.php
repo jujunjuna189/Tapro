@@ -3,7 +3,7 @@
 <form class="card card-md" action="{{ route('login') }}" method="POST" autocomplete="off">
     @csrf
     <div class="card-body">
-        <h2 class="card-title text-center mb-4">Masuk dengan akun kamu</h2>
+        <h2 class="card-title text-center mb-4">Masuk dengan akun</h2>
         <div class="mb-3">
             <label class="form-label">Alamat Email</label>
             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>

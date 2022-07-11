@@ -61,19 +61,33 @@
 </div>
 <div class="row row-cards mt-3">
     <div class="col-md-12 mt-3">
-        <div class="d-flex justify-content-between">
+        <div class="d-md-flex justify-content-between">
             <div>
                 <h2 class="fw-bolder text-muted">List Tugas</h2>
             </div>
-            <div>
-                <span class="btn rounded-10" onclick="open_modal('#modal-task', '#modal-task textarea[name=title]')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <line x1="12" y1="5" x2="12" y2="19" />
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                    </svg>
-                    Tambah
-                </span>
+            <div class="d-flex">
+                <div>
+                    <span class="btn me-2 bg-blue-lt rounded-10 border cursor-pointer" onclick="open_modal('#modal-review', '#modal-review textarea[name=title]')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checklist" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8"></path>
+                            <path d="M14 19l2 2l4 -4"></path>
+                            <path d="M9 8h4"></path>
+                            <path d="M9 12h2"></path>
+                        </svg>
+                        Periksa
+                    </span>
+                </div>
+                <div>
+                    <span class="btn rounded-10" onclick="open_modal('#modal-task', '#modal-task textarea[name=title]')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        Tambah
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -88,6 +102,8 @@
 @section('modal')
 <!-- Modal for new task -->
 <x-modal.new-task />
+<!-- Modal for review assistant -->
+<x-modal.workspace.review />
 <!-- Modal for share -->
 <x-modal.share-task :result="$member" />
 @endsection

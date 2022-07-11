@@ -159,6 +159,10 @@ class TaskController extends Controller
                 $data['project_id'] = $dataRequest->project_id;
             }
 
+            $task = TaskModel::where($data)->get();
+            foreach ($task as $val) {
+                (new ShareController)->delete(new Request(['task_id' => $val->id]));
+            }
             $delete = TaskModel::where($data)->delete();
 
             if ($delete) {

@@ -52,7 +52,7 @@ class WorkspaceController extends Controller
         //user_id not write becouse alexist in request -> warning
         $data['workspace_id'] = $workspace_id;
         $data['role'] = 'Owner';
-        $data['access'] = 1;
+        $data['access'] = 0;
 
         $request->request->add($data);
         (new MemberController)->create($request);
@@ -134,7 +134,10 @@ class WorkspaceController extends Controller
             $dataRequest = $request;
             $id = $dataRequest->id;
 
+            // Delete Project
             (new ProjectController)->delete(new Request(['workspace_id' => $dataRequest->id]));
+            // Delete Member
+            (new MemberController)->delete(new Request(['workspace_id' => $dataRequest->id]));
             $delete = WorkspaceModel::where('id', $id)->delete();
 
             if ($delete) {

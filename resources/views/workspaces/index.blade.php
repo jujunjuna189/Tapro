@@ -25,10 +25,6 @@
                     {{ $workspace->title }}
                 </h2>
                 <div class="btn-list mt-4">
-                    <a href="#" class="btn rounded-10">
-                        {!! App\Models\GlobalModel::my_icon()->edit_circle !!}
-                        Edit
-                    </a>
                     <a href="#" class="btn bg-red-lt rounded-10">
                         {!! App\Models\GlobalModel::my_icon()->bell_ringing !!}
                         Mengikuti

@@ -1,10 +1,31 @@
 <div class="card card-sm rounded-20-left shadow-none hover-shadow-primary mb-2">
     <div class="card-body px-3 py-3 d-flex align-items-center justify-content-start">
         <div class="me-3">
+            @if(!$onlyView)
             @if($completed)
             <input class="form-check-input checkbox-custome" type="checkbox" checked onclick="onTaskCompleted(this, '{{ $id }}')">
             @else
             <input class="form-check-input checkbox-custome" type="checkbox" onclick="onTaskCompleted(this, '{{ $id }}')">
+            @endif
+            @endif
+            <!-- If access not editing -->
+            @if($onlyView)
+            @if($completed)
+            <span class="text-success">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M9 12l2 2l4 -4"></path>
+                </svg>
+            </span>
+            @else
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <circle cx="12" cy="12" r="9"></circle>
+                </svg>
+            </span>
+            @endif
             @endif
         </div>
         <div>
@@ -21,6 +42,7 @@
                 @foreach($share as $val)
                 <span class="avatar avatar-xs avatar-rounded" data-bs-toggle="tooltip">{{ substr($val->name, 0, 2) }}</span>
                 @endforeach
+                @if(!$onlyView)
                 <span class="avatar avatar-xs avatar-rounded" data-bs-toggle="tooltip" onclick="shareTaskToMember(this, '{{ $id }}')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -28,7 +50,9 @@
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                     </svg>
                 </span>
+                @endif
             </div>
+            @if(!$onlyView)
             <div class="dropdown">
                 <span class="text-dark" data-bs-toggle="dropdown">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -61,6 +85,7 @@
                     </a>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>

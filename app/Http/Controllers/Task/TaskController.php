@@ -39,15 +39,19 @@ class TaskController extends Controller
         $task = $task->original['data'];
 
         $result = [];
-        foreach ($task as $val) {
-            $result[] = (object) [
-                'id' => $val->id,
-                'project_id' => $val->project_id,
-                'title' => $val->title,
-                'completed' => $val->completed,
-                'deleted' => $val->deleted,
-                'share' => $val->share
-            ];
+        try {
+            foreach ($task as $val) {
+                $result[] = (object) [
+                    'id' => $val->id,
+                    'project_id' => $val->project_id,
+                    'title' => $val->title,
+                    'completed' => $val->completed,
+                    'deleted' => $val->deleted,
+                    'share' => $val->share
+                ];
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
         }
 
         return $result;
@@ -58,21 +62,25 @@ class TaskController extends Controller
         $project = (new ProjectController)->getProject($workspace_id);
 
         $result = [];
-        foreach ($project as $val) {
-            foreach ($this->getTask($val->id) as $value) {
-                foreach ($value->share as $shareVal) {
-                    if ($shareVal->user_id == $user_id) {
-                        $result[] = (object) [
-                            'id' => $value->id,
-                            'project_id' => $value->project_id,
-                            'title' => $value->title,
-                            'completed' => $value->completed,
-                            'deleted' => $value->deleted,
-                            'share' => $value->share
-                        ];
+        try {
+            foreach ($project as $val) {
+                foreach ($this->getTask($val->id) as $value) {
+                    foreach ($value->share as $shareVal) {
+                        if ($shareVal->user_id == $user_id) {
+                            $result[] = (object) [
+                                'id' => $value->id,
+                                'project_id' => $value->project_id,
+                                'title' => $value->title,
+                                'completed' => $value->completed,
+                                'deleted' => $value->deleted,
+                                'share' => $value->share
+                            ];
+                        }
                     }
                 }
             }
+        } catch (\Throwable $th) {
+            //throw $th;
         }
 
         return $result;

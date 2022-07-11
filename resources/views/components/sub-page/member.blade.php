@@ -22,7 +22,7 @@
     <div class="row row-cards mt-1 pt-3" id="list-project">
         @foreach($result as $val)
         <div class="col-md-12 col-lg-12 px-2 my-1">
-            <div class="card card-sm rounded-20-left shadow-none hover-shadow-primary h-100" onclick="window.open('<?= route('workspace.task') ?>', '_parent')">
+            <div class="card card-sm rounded-20-left shadow-none hover-shadow-primary h-100">
                 <div class="card-body px-3 py-3 d-flex align-items-center justify-content-start">
                     <div>
                         <span class="avatar avatar-sm avatar-rounded" data-bs-toggle="tooltip" style="background-image: url(<?= asset('assets/dist/img/user.svg') ?>)">{{ substr($val->name, 0, 2) }}</span>

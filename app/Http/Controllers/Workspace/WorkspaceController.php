@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Task\TaskController;
+use App\Models\GlobalModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,14 +18,16 @@ class WorkspaceController extends Controller
         $project = [];
         $member = [];
         $task = [];
+        $access = true;
 
         try {
             $project = (new ProjectController)->getProject(['project_id' => $request->project_id]);
             $member = (new MemberController)->getMember(['workspace_id' => $project[0]->workspace_id]);
             $member = array_filter($member, function ($val) {
-                return $val->user_id != Auth::user()->id;
+                return $val; //$val->user_id != Auth::user()->id;
             });
             $task = (new TaskController)->getTask($request->project_id);
+            $access = GlobalModel::getSession('access');
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -33,6 +36,7 @@ class WorkspaceController extends Controller
         $data['project'] = $project[0];
         $data['share'] = [];
         $data['task'] = $task;
+        $data['access'] = $access;
 
         return view('workspace.task_workspace', $data);
     }

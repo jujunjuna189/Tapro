@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Session;
 
 class GlobalModel extends Model
 {
@@ -112,28 +113,12 @@ class GlobalModel extends Model
 
     protected static function access_workspace($value)
     {
-        $type = [
-            (object) [
-                'access' => 'view',
-                'add' => false,
-                'update' => false,
-            ],
-            (object) [
-                'access' => 'comment',
-                'add' => false,
-                'update' => true,
-            ],
-            (object) [
-                'access' => 'editor',
-                'add' => true,
-                'update' => true,
-            ]
-        ];
+        $type = [true, false];
 
         if ($value < count($type)) {
             $value = $type[$value];
         } else {
-            $value = $type[0];
+            $value = $type[1];
         }
 
         return $value;
@@ -205,5 +190,23 @@ class GlobalModel extends Model
         }
 
         return $result;
+    }
+
+    protected function setSession($key, $value)
+    {
+        if (Session::has($key)) {
+            Session::forget($key);
+        }
+
+        Session::put($key, $value);
+    }
+
+    protected function getSession($key)
+    {
+        if (Session::has($key)) {
+            return Session::get($key);
+        }
+
+        return null;
     }
 }

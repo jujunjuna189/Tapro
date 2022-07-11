@@ -4,7 +4,7 @@ namespace App\View\Components\Modal;
 
 use Illuminate\View\Component;
 
-class new-task extends Component
+class NewTask extends Component
 {
     /**
      * Create a new component instance.
