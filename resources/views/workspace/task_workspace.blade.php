@@ -223,8 +223,8 @@
         $(taskViewList).empty();
         let view = '';
         $.each(array, function(i, row) {
-            let textDel = row.deleted ? '<del>' + row.title + '</del>' : row.title;
-            let check = row.completed ? '<input class="form-check-input checkbox-custome" type="checkbox" checked onclick="onTaskCompleted(this, \'' + row.id + '\')">' : '<input class="form-check-input checkbox-custome" type="checkbox" onclick="onTaskCompleted(this, \'' + row.id + '\')">';
+            let textDel = row.deleted == 1 ? '<del>' + row.title + '</del>' : row.title;
+            let check = row.completed == 1 ? '<input class="form-check-input checkbox-custome" type="checkbox" checked onclick="onTaskCompleted(this, \'' + row.id + '\')">' : '<input class="form-check-input checkbox-custome" type="checkbox" onclick="onTaskCompleted(this, \'' + row.id + '\')">';
             view += '<div class="card card-sm rounded-20-left shadow-none border-0 hover-shadow-primary mb-2">' +
                 '<div class="card-body px-3 py-3 d-flex align-items-center justify-content-start">' +
                 '<div class="me-3">' +
@@ -302,7 +302,7 @@
     const countPercent = (array_task) => {
         let taskCompleted = 0;
         $.each(array_task, function(i, row) {
-            taskCompleted += row.completed ?? 1;
+            taskCompleted += row.completed == 1 ? 1 : 0;
         });
 
         let total_task = array_task.length;
@@ -315,7 +315,7 @@
     const countTask = (array_task) => {
         let taskCompleted = 0;
         $.each(array_task, function(i, row) {
-            taskCompleted += row.completed ?? 1;
+            taskCompleted += row.completed == 1 ? 1 : 0;
         });
         let total_task = array_task.length;
 
@@ -346,19 +346,20 @@
     // If Task deleted
     const onTaskDeleted = (id) => {
         var dataIndex = data_task.findIndex((x) => x.id == id);
-        if (!data_task[dataIndex].deleted) {
+        updateDataTask({
+            id: id,
+            deleted: data_task[dataIndex].deleted == 0 ? 1 : 0,
+        });
+
+        if (data_task[dataIndex].deleted == 0) {
             // data_task[dataIndex].completed = true;
-            data_task[dataIndex].deleted = true;
+            data_task[dataIndex].deleted = 1;
         } else {
             // data_task[dataIndex].completed = false;
-            data_task[dataIndex].deleted = false;
+            data_task[dataIndex].deleted = 0;
         }
 
         drawTask(data_task);
-        updateDataTask({
-            id: id,
-            deleted: data_task[dataIndex].deleted ? 1 : 0,
-        });
     }
     // On Delete
     const deleteDataTask = (data) => {
