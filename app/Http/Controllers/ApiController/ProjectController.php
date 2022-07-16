@@ -72,7 +72,7 @@ class ProjectController extends Controller
                 return response()->json([
                     'status' => 'Failed',
                     'data' => [
-                        'Failed Get Data'
+                        'Failed Get Data',
                     ],
                 ], 300);
             }
