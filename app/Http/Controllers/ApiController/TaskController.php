@@ -100,9 +100,7 @@ class TaskController extends Controller
             } else {
                 return response()->json([
                     'status' => 'Failed',
-                    'data' => [
-                        'Failed Get Data'
-                    ],
+                    'data' => [],
                 ], 300);
             }
         } catch (Exception $e) {
