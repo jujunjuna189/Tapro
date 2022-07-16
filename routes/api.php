@@ -33,6 +33,7 @@ Route::post('/project/update', [App\Http\Controllers\ApiController\ProjectContro
 Route::post('/project/delete', [App\Http\Controllers\ApiController\ProjectController::class, 'delete']);
 // Task
 Route::get('/task/data', [App\Http\Controllers\ApiController\TaskController::class, 'data']);
+Route::get('/task/dataByWorkspace', [App\Http\Controllers\ApiController\TaskController::class, 'dataByWorkspace']);
 Route::post('/task/create', [App\Http\Controllers\ApiController\TaskController::class, 'create']);
 Route::post('/task/update', [App\Http\Controllers\ApiController\TaskController::class, 'update']);
 Route::post('/task/delete', [App\Http\Controllers\ApiController\TaskController::class, 'delete']);

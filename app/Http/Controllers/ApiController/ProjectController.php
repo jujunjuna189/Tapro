@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\ApiController;
 
 use App\Http\Controllers\Controller;
+use App\Models\GlobalModel;
 use App\Models\ProjectModel;
+use App\Models\ShareModel;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -15,13 +17,50 @@ class ProjectController extends Controller
             $dataRequest = $request;
             // Get Project
             if (isset($dataRequest->project_id) && $dataRequest->project_id != '') {
-                $data['id'] = $dataRequest->project_id;
-                $result = ProjectModel::where($data)->get();
-            } else {
-                //get workspace to get workspace id by user_id
-                $workspace = (new WorkspaceController)->data($dataRequest);
-                $workspace = $workspace->original['data'][0];
-                $result = $workspace->project;
+                $where['id'] = $dataRequest->project_id;
+            }
+
+            if (isset($dataRequest->workspace_id) && $dataRequest->workspace_id != '') {
+                $where['workspace_id'] = $dataRequest->workspace_id;
+            }
+
+            $project = ProjectModel::where($where)->get();
+
+            $result = [];
+            foreach ($project as $val) {
+                $taskId = [];
+                foreach ($val->task as $valTask) {
+                    $taskId[] = $valTask->id;
+                }
+
+                $shareResult = ShareModel::whereIn('task_id', $taskId)->get();
+                $share = [];
+                foreach ($shareResult as $valShare) {
+                    if (!GlobalModel::search_array($share, 'user_id', $valShare->user_id)) {
+                        $share[] = [
+                            'id' => $valShare->id,
+                            'user_id' => $valShare->user_id,
+                            'name' => $valShare->user->name,
+                            'task_id' => $valShare->task_id,
+                            'access' => $valShare->access,
+                            'created_at' => $valShare->created_at,
+                            'updated_at' => $valShare->updated_at,
+                        ];
+                    }
+                }
+
+                $result[] = (object) [
+                    'id' => $val->id,
+                    'workspace_id' => $val->workspace_id,
+                    'title' => $val->title,
+                    'description' => $val->description,
+                    'deadline' => $val->deadline,
+                    'visibility' => $val->visibility,
+                    'total_task_completed' => count(GlobalModel::search_array($val->task, 'completed', '1')),
+                    'total_task' => $val->task->count(),
+                    'share' => $share,
+                    'url_open' => route('workspace.task', ['project_id' => $val->id])
+                ];
             }
 
             if ($result) {
@@ -58,12 +97,16 @@ class ProjectController extends Controller
             $data['deadline'] = $dataRequest->deadline;
             $data['visibility'] = $dataRequest->visibility;
 
-            $create = ProjectModel::create($data);
+            $project = ProjectModel::create($data);
+            $project['total_task_completed'] = 0;
+            $project['total_task'] = 0;
+            $project['share'] = [];
+            $project['url_open'] = route('workspace.task', ['project_id' => $project->id]);
 
-            if ($create) {
+            if ($project) {
                 return response()->json([
                     'status' => 'Success',
-                    'data' => $create,
+                    'data' => $project,
                 ], 200);
             } else {
                 return response()->json([

@@ -20,17 +20,17 @@ class WorkspaceController extends Controller
         $task = [];
         $access = true;
 
-        try {
-            $project = (new ProjectController)->getProject(['project_id' => $request->project_id]);
-            $member = (new MemberController)->getMember(['workspace_id' => $project[0]->workspace_id]);
-            $member = array_filter($member, function ($val) {
-                return $val; //$val->user_id != Auth::user()->id;
-            });
-            $task = (new TaskController)->getTask($request->project_id);
-            $access = GlobalModel::getSession('access');
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+        // try {
+        $project = (new ProjectController)->getProject(['project_id' => $request->project_id]);
+        $member = (new MemberController)->getMember(['workspace_id' => $project[0]->workspace_id]);
+        $member = array_filter($member, function ($val) {
+            return $val; //$val->user_id != Auth::user()->id;
+        });
+        $task = (new TaskController)->getTask($request->project_id);
+        $access = GlobalModel::getSession('access');
+        // } catch (\Throwable $th) {
+        //     //throw $th;
+        // }
 
         $data['member'] = $member;
         $data['project'] = $project[0];

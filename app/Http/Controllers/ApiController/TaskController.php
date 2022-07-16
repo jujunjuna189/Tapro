@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ApiController;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProjectModel;
 use App\Models\TaskModel;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,10 +15,9 @@ class TaskController extends Controller
     {
         try {
             $dataRequest = $request;
-            $project = (new ProjectController)->data($dataRequest); //just project id
-            $project = $project->original['data'][0];
+            $where['project_id'] = $dataRequest->project_id;
 
-            $task = $project->task;
+            $task = TaskModel::where($where)->get();
 
             $result = [];
             foreach ($task as $val) {
@@ -69,6 +69,52 @@ class TaskController extends Controller
         }
     }
 
+    public function dataByWorkspace(Request $request)
+    {
+        try {
+            $project = ProjectModel::where(['workspace_id' => $request->workspace_id])->get();
+
+            $result = [];
+            foreach ($project as $val) {
+                foreach ($val->task as $value) {
+                    foreach ($value->share as $shareVal) {
+                        if ($shareVal->user_id == $request->user_id) {
+                            $result[] = (object) [
+                                'id' => $value->id,
+                                'project_id' => $value->project_id,
+                                'title' => $value->title,
+                                'completed' => $value->completed,
+                                'deleted' => $value->deleted,
+                                'share' => $value->share
+                            ];
+                        }
+                    }
+                }
+            }
+
+            if ($result) {
+                return response()->json([
+                    'status' => 'Success',
+                    'data' => $result,
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => 'Failed',
+                    'data' => [
+                        'Failed Get Data'
+                    ],
+                ], 300);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'Failed',
+                'data' => [
+                    $e
+                ],
+            ], 500);
+        }
+    }
+
     public function create(Request $request)
     {
         try {
@@ -76,8 +122,8 @@ class TaskController extends Controller
 
             $data['project_id'] = $dataRequest->project_id;
             $data['title'] = $dataRequest->title;
-            $data['completed'] = false;
-            $data['deleted'] = false;
+            $data['completed'] = 0;
+            $data['deleted'] = 0;
 
             $create = TaskModel::create($data);
             $create['share'] = [];

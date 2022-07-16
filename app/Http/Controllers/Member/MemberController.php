@@ -8,13 +8,6 @@ use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
-    public function create(Request $request)
-    {
-        $project = (new ApiControllerMemberController)->create($request);
-        $project = $project->original['data'];
-        return response()->json($project);
-    }
-
     public function getMember($data)
     {
         $requestMember = new Request($data);
@@ -22,5 +15,12 @@ class MemberController extends Controller
         $member = $member->original['data'];
         $result = $member;
         return $result;
+    }
+
+    public function create(Request $request)
+    {
+        $project = (new ApiControllerMemberController)->create($request);
+        $project = $project->original['data'];
+        return response()->json($project);
     }
 }

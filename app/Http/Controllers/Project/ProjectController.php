@@ -3,42 +3,49 @@
 namespace App\Http\Controllers\Project;
 
 use App\Http\Controllers\ApiController\ProjectController as ApiControllerProjectController;
-use App\Http\Controllers\ApiController\ShareController;
 use App\Http\Controllers\Controller;
 use App\Models\GlobalModel;
+use App\Models\ProjectModel;
+use App\Models\ShareModel;
 use Illuminate\Http\Request;
-
-use function PHPUnit\Framework\isEmpty;
 
 class ProjectController extends Controller
 {
-    public function create(Request $request)
-    {
-        $project = (new ApiControllerProjectController)->create($request);
-        $project = $project->original['data'];
-        $project['total_task_completed'] = 0;
-        $project['total_task'] = 0;
-        $project['share'] = [];
-        $project['url_open'] = route('workspace.task', ['project_id' => $project->id]);
-
-        return response()->json($project);
-    }
-
     public function getProject($data)
     {
-        $requestProject = new Request($data);
-        $project = (new ApiControllerProjectController)->data($requestProject);
-        $project = $project->original['data'];
+        $dataRequest = new Request($data);
+
+        if (isset($dataRequest->project_id) && $dataRequest->project_id != '') {
+            $where['id'] = $dataRequest->project_id;
+        }
+
+        if (isset($dataRequest->workspace_id) && $dataRequest->workspace_id != '') {
+            $where['workspace_id'] = $dataRequest->workspace_id;
+        }
+
+        $project = ProjectModel::where($where)->get();
 
         $result = [];
         foreach ($project as $val) {
+            $taskId = [];
+            foreach ($val->task as $valTask) {
+                $taskId[] = $valTask->id;
+            }
+
+            $shareResult = ShareModel::whereIn('task_id', $taskId)->get();
             $share = [];
-            try {
-                $share = array_filter((new ShareController)->data(new Request(['project_id' => $val->id]))->original['data'], function ($val) {
-                    return $val['user_id'];
-                });
-            } catch (\Throwable $th) {
-                //throw $th;
+            foreach ($shareResult as $value) {
+                if (!GlobalModel::search_array($share, 'user_id', $value->user_id)) {
+                    $share[] = [
+                        'id' => $value->id,
+                        'user_id' => $value->user_id,
+                        'name' => $value->user->name,
+                        'task_id' => $value->task_id,
+                        'access' => $value->access,
+                        'created_at' => $value->created_at,
+                        'updated_at' => $value->updated_at,
+                    ];
+                }
             }
 
             $result[] = (object) [
@@ -56,5 +63,17 @@ class ProjectController extends Controller
         }
 
         return $result;
+    }
+
+    public function create(Request $request)
+    {
+        $project = (new ApiControllerProjectController)->create($request);
+        $project = $project->original['data'];
+        $project['total_task_completed'] = 0;
+        $project['total_task'] = 0;
+        $project['share'] = [];
+        $project['url_open'] = route('workspace.task', ['project_id' => $project->id]);
+
+        return response()->json($project);
     }
 }
