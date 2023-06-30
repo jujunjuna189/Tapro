@@ -52,6 +52,16 @@
                 </span>
                 @endif
             </div>
+            <div>
+                <span onclick="commentTask(this, '{{ $id }}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4" />
+                        <line x1="8" y1="9" x2="16" y2="9" />
+                        <line x1="8" y1="13" x2="14" y2="13" />
+                    </svg>
+                </span>
+            </div>
             @if(!$onlyView)
             <div class="dropdown">
                 <span class="text-dark" data-bs-toggle="dropdown">
@@ -88,4 +98,25 @@
             @endif
         </div>
     </div>
+    @if(count($comment) > 0)
+    <div class="mt-1 m-3">
+        @foreach($comment as $val)
+        <div class="border-2 border-start border-primary rounded mt-2 d-flex justify-content-between align-items-center bg-light text-dark">
+            <div class="p-2">
+                {{ $val->comment }}
+            </div>
+            <span onclick="deleteTaskComment(this, '{{ $id }}', '{{ $val->id }}')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M4 7l16 0"></path>
+                    <path d="M10 11l0 6"></path>
+                    <path d="M14 11l0 6"></path>
+                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                </svg>
+            </span>
+        </div>
+        @endforeach
+    </div>
+    @endif
 </div>

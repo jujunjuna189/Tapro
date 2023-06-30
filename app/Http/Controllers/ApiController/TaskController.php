@@ -125,6 +125,7 @@ class TaskController extends Controller
 
             $create = TaskModel::create($data);
             $create['share'] = [];
+            $create['comment'] = [];
 
             if ($create) {
                 return response()->json([

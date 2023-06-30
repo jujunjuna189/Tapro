@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProject extends Migration
+class CreateTaskComment extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateProject extends Migration
      */
     public function up()
     {
-        Schema::create('project', function (Blueprint $table) {
+        Schema::create('task_comment', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('workspace_id');
-            $table->string('title');
-            $table->string('description')->nullable(true);
-            $table->string('deadline')->nullable(true);
-            $table->string('visibility');
+            $table->bigInteger('task_id');
+            $table->bigInteger('user_id');
+            $table->text('comment');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateProject extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project');
+        Schema::dropIfExists('task_comment');
     }
 }

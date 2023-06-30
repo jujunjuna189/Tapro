@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Auth::routes();
@@ -40,4 +40,9 @@ Route::group(['middleware' => 'auth'], function () {
     // Share
     Route::post('/share/create', [App\Http\Controllers\Share\ShareController::class, 'create'])->name('share.create');
     Route::post('/share/delete', [App\Http\Controllers\Share\ShareController::class, 'delete'])->name('share.delete');
+    // Dealine
+    Route::post('/deadline/create', [App\Http\Controllers\Deadline\DeadlineController::class, 'create'])->name('deadline.create');
+    // Comment
+    Route::post('/comment/task/create', [App\Http\Controllers\CommentTask\CommentTaskController::class, 'create'])->name('comment.task.create');
+    Route::post('/comment/task/delete', [App\Http\Controllers\CommentTask\CommentTaskController::class, 'delete'])->name('comment.task.delete');
 });

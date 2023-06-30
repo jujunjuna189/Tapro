@@ -101,7 +101,7 @@
                             <ul class="list-inline list-inline-dots mb-0">
                                 <li class="list-inline-item">
                                     Copyright &copy; Taspro
-                                    Created By @Ujun Junaedi
+                                    Created By @Taspro 2023
                                 </li>
                                 <li class="list-inline-item">
                                     <a href="./changelog.html" class="link-secondary" rel="noopener">
@@ -141,6 +141,7 @@
     <script type="module" src="{{ asset('assets/pus_dist/js/firebase/config.js') }}"></script>
     <!-- Custome Js -->
     <script src="{{ asset('assets/pus_dist/js/script.js') }}"></script>
+    <script src="{{ asset('assets/pus_dist/js/global_script.js') }}"></script>
 
     <script>
         let auth_user = <?= json_encode(Illuminate\Support\Facades\Auth::user()) ?>;

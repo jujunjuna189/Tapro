@@ -15,4 +15,9 @@ class TaskModel extends Model
     {
         return $this->hasMany(ShareModel::class, 'task_id', 'id');
     }
+
+    public function comment()
+    {
+        return $this->hasMany(TaskCommentModel::class, 'task_id', 'id');
+    }
 }

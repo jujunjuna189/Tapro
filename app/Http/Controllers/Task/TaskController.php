@@ -41,7 +41,8 @@ class TaskController extends Controller
                     'title' => $val->title,
                     'completed' => $val->completed,
                     'deleted' => $val->deleted,
-                    'share' => $share
+                    'share' => $share,
+                    'comment' => $val->comment
                 ];
             }
         } catch (\Throwable $th) {

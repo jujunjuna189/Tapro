@@ -25,7 +25,48 @@
         </div>
     </div>
     <div class="col-md-6 pt-3">
-        <div class="fw-bold h1 text-center text-md-start">{{ $project->title }}</div>
+        <div class="fw-bold h1 text-center text-md-start d-flex align-items-center gap-3">
+            {{ $project->title }}
+            <div class="dropdown">
+                <span class="bg-primary px-1 rounded d-inline-flex cursor-pointer" data-bs-toggle="dropdown">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                        <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                        <path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                    </svg>
+                </span>
+                <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-end">
+                    <span class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-date-project">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+                            <path d="M16 3l0 4"></path>
+                            <path d="M8 3l0 4"></path>
+                            <path d="M4 11l16 0"></path>
+                            <path d="M8 15h2v2h-2z"></path>
+                        </svg>
+                        Tanggal
+                    </span>
+                    <a class="dropdown-item" href="#" onclick="">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <line x1="4" y1="7" x2="20" y2="7"></line>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                        </svg>
+                        Hapus
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 d-flex">
+            <div class="py-2 px-3 rounded fw-bold" id="deadline-section">
+                {{ $project->deadline }}
+            </div>
+        </div>
         <div class="d-flex mt-3 justify-content-center justify-content-md-start">
             <div class="me-3">
                 <a href="#" class="link-muted">
@@ -93,7 +134,7 @@
     </div>
     <div class="col-md-12" id="list-task">
         @foreach($task as $val)
-        <x-list-entry.task-list :id="$val->id" :title="$val->title" :completed="$val->completed" :deleted="$val->deleted" :share="$val->share" />
+        <x-list-entry.task-list :id="$val->id" :title="$val->title" :completed="$val->completed" :deleted="$val->deleted" :share="$val->share" :comment="$val->comment" />
         @endforeach
     </div>
 </div>
@@ -104,6 +145,8 @@
 <x-modal.new-task />
 <!-- Modal for review assistant -->
 <x-modal.workspace.review />
+<x-modal.workspace.date :id="$project->id" />
+<x-modal.workspace.comment />
 <!-- Modal for share -->
 <x-modal.share-task :result="$member" />
 @endsection
@@ -134,6 +177,7 @@
     let contentWorkspaceTaskComplete = '#task_complete';
     let contentWorkspaceTotalTask = '#total_task';
     let contentListAvatarShare = '#list-avatar-share';
+    let contentDeadlineProject = '#deadline-section';
 
     // List user share
     const contentListUserShare = () => {
@@ -235,6 +279,16 @@
                 '</div>' +
                 '<div class="ms-auto d-flex align-items-center">' +
                 listShare(row.id, row.share) +
+                '<div>' +
+                '<span onclick="commentTask(this, \'' + row.id + '\')">' +
+                '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">' +
+                '<path stroke="none" d="M0 0h24v24H0z" fill="none" />' +
+                '<path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4" />' +
+                '<line x1="8" y1="9" x2="16" y2="9" />' +
+                '<line x1="8" y1="13" x2="14" y2="13" />' +
+                '</svg>' +
+                '</span>' +
+                '</div>' +
                 '<div class="dropdown">' +
                 '<span class="text-dark" data-bs-toggle="dropdown">' +
                 '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">' +
@@ -269,6 +323,7 @@
                 '</div>' +
                 '</div>' +
                 '</div>' +
+                renderCommentTask(row.id, row.comment) +
                 '</div>';
         });
 
@@ -298,6 +353,36 @@
         return view;
     }
 
+    const renderCommentTask = (task_id, array) => {
+        let view = '';
+        let listData = '';
+        if (array != undefined && array.length > 0) {
+            $.each(array, function(i, row) {
+                listData += '<div class="border-2 border-start border-primary rounded mt-2 d-flex justify-content-between align-items-center bg-light text-dark">' +
+                    '<div class="p-2">' +
+                    row.comment +
+                    '</div>' +
+                    '<span onclick="deleteTaskComment(this, \'' + task_id + '\', \'' + row.id + '\')">' +
+                    '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">' +
+                    '<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>' +
+                    '<path d="M4 7l16 0"></path>' +
+                    '<path d="M10 11l0 6"></path>' +
+                    '<path d="M14 11l0 6"></path>' +
+                    '<path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>' +
+                    '<path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>' +
+                    '</svg>' +
+                    '</span>' +
+                    '</div>';
+            });
+
+            view = '<div class="mt-1 m-3"> ' +
+                listData +
+                '</div>';
+        }
+
+        return view;
+    }
+
     // void count percent
     const countPercent = (array_task) => {
         let taskCompleted = 0;
@@ -310,6 +395,15 @@
 
         jusgageChart.refresh(percentage);
         countTask(data_task);
+        setBgStatus(percentage);
+    }
+
+    const setBgStatus = (percentage) => {
+        let bg = percentage == 100 ? 'bg-success' : 'bg-warning';
+        let bgRe = percentage != 100 ? 'bg-success' : 'bg-warning';
+
+        $(contentDeadlineProject).removeClass(bgRe);
+        $(contentDeadlineProject).addClass(bg);
     }
     // void count task
     const countTask = (array_task) => {
@@ -494,6 +588,48 @@
                 data_task[taskIndex].share = data_task[taskIndex].share.filter((x) => x.user_id != data.user_id && x.task_id == data.task_id);
                 drawTask(data_task);
                 contentListUserShare();
+            }
+        });
+    }
+
+    // Comment task
+    let parentCommentTaskModal = '#modal-comment-task';
+    let parentCommentTaskModalComment = '#modal-comment-task #comment-task';
+    const dataCommentTask = {};
+
+    const commentTask = (event, id) => {
+        dataCommentTask.id = id;
+        $(parentCommentTaskModal).modal('show');
+    }
+
+    const onSaveCommentTask = () => {
+        let valueComment = $(parentCommentTaskModalComment).val();
+        uploadDataServer({
+            url: url + '/comment/task/create',
+            data: {
+                task_id: dataCommentTask.id,
+                user_id: user_id,
+                comment: valueComment,
+            },
+            onSuccess: function(response) {
+                let taskIndex = data_task.findIndex((x) => x.id == dataCommentTask.id);
+                data_task[taskIndex].comment.push(response);
+                drawTask(data_task);
+            }
+        });
+    }
+
+    const deleteTaskComment = (event, task_id, id) => {
+        uploadDataServer({
+            url: url + '/comment/task/delete',
+            data: {
+                id: id,
+            },
+            onSuccess: function(response) {
+                let taskIndex = data_task.findIndex((x) => x.id == task_id);
+                console.log(taskIndex);
+                data_task[taskIndex].comment = data_task[taskIndex].comment.filter((x) => x.id != id);
+                drawTask(data_task);
             }
         });
     }
