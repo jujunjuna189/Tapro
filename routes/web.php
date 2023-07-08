@@ -23,6 +23,9 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     // Home
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    // Profile
+    Route::get('/profile', [App\Http\Controllers\Profile\ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile/update', [App\Http\Controllers\Profile\ProfileController::class, 'update'])->name('profile.update');
     // Workspaces
     Route::get('/workspaces', [App\Http\Controllers\Workspaces\WorkspacesController::class, 'index'])->name('workspaces');
     // Workspace

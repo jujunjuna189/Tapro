@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Sign in - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
     <!-- CSS files -->
-    <link href="{{ asset('assets/dist/css/tabler.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/dist/css/tabler.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/dist/css/tabler-flags.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/dist/css/tabler-payments.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/dist/css/tabler-vendors.min.css') }}" rel="stylesheet" />
@@ -26,6 +26,7 @@
     <!-- Tabler Core -->
     <script src="{{ asset('assets/dist/js/tabler.min.js') }}"></script>
     <script src="{{ asset('assets/dist/js/demo.min.js') }}"></script>
+    @yield('script')
 </body>
 
 </html>

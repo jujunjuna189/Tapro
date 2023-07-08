@@ -28,15 +28,12 @@
             <label class="form-label">Password</label>
             <div class="input-group input-group-flat">
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                <span class="input-group-text">
-                    <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <circle cx="12" cy="12" r="2" />
-                            <path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" />
-                        </svg>
-                    </a>
+                <span class="input-group-text cursor-pointer" onclick="showPassword('#password')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <circle cx="12" cy="12" r="2" />
+                        <path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" />
+                    </svg>
                 </span>
 
                 @error('password')
@@ -50,24 +47,21 @@
             <label class="form-label">Konfirmasi Password</label>
             <div class="input-group input-group-flat">
                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                <span class="input-group-text">
-                    <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <circle cx="12" cy="12" r="2" />
-                            <path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" />
-                        </svg>
-                    </a>
+                <span class="input-group-text cursor-pointer" onclick="showPassword('#password-confirm')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <circle cx="12" cy="12" r="2" />
+                        <path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" />
+                    </svg>
                 </span>
             </div>
         </div>
-        <div class="mb-3">
+        <!-- <div class="mb-3">
             <label class="form-check">
                 <input type="checkbox" class="form-check-input" />
                 <span class="form-check-label">Setuju <a href="./terms-of-service.html" tabindex="-1">Ketentuan dan Kebijakan</a>.</span>
             </label>
-        </div>
+        </div> -->
         <div class="form-footer">
             <button type="submit" class="btn btn-primary w-100">Daftar Akun Baru</button>
         </div>
@@ -76,4 +70,12 @@
 <div class="text-center text-muted mt-3">
     Sudah mempunyai akun ? <a href="{{ route('login') }}" tabindex="-1">Masuk</a>
 </div>
+@endsection
+@section('script')
+<script>
+    const showPassword = (element) => {
+        let password = document.querySelector(element);
+        password.type === 'text' ? password.type = 'password' : password.type = 'text';
+    }
+</script>
 @endsection

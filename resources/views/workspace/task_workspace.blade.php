@@ -108,18 +108,6 @@
             </div>
             <div class="d-flex">
                 <div>
-                    <span class="btn me-2 bg-blue-lt rounded-10 border cursor-pointer" onclick="open_modal('#modal-review', '#modal-review textarea[name=title]')">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checklist" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8"></path>
-                            <path d="M14 19l2 2l4 -4"></path>
-                            <path d="M9 8h4"></path>
-                            <path d="M9 12h2"></path>
-                        </svg>
-                        Periksa
-                    </span>
-                </div>
-                <div>
                     <span class="btn rounded-10" onclick="open_modal('#modal-task', '#modal-task textarea[name=title]')">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />

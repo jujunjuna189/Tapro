@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Dashboard - Tapro (Task Progress)</title>
     <!-- CSS files -->
-    <link href="{{ asset('assets/dist/css/tabler.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/dist/css/tabler.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/dist/css/tabler-flags.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/dist/css/tabler-payments.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/dist/css/tabler-vendors.min.css') }}" rel="stylesheet" />
@@ -45,7 +45,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                             <!-- <a href="#" class="dropdown-item">Set status</a> -->
-                            <a href="#" class="dropdown-item">Profile &amp; account</a>
+                            <a href="{{ route('profile') }}" class="dropdown-item">Profil &amp; Akun</a>
                             <!-- <a href="#" class="dropdown-item">Feedback</a> -->
                             <div class="dropdown-divider"></div>
                             <!-- <a href="#" class="dropdown-item">Settings</a> -->

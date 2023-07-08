@@ -84,7 +84,7 @@ body {
   line-height: var(--tblr-body-line-height);
   color: var(--tblr-body-color);
   text-align: var(--tblr-body-text-align);
-  background-color: var(--tblr-body-bg);
+  /* background-color: var(--tblr-body-bg); */
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
